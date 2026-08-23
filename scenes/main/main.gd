@@ -1,23 +1,65 @@
 extends Control
 
-@export var color_rect: ColorRect
+const LOGIN = preload("uid://4cv5jv1to8tf")
+const SIGNUP = preload("uid://bt2yw2vyn3jq3")
 
-var server: bool = false
+var login: Panel
+var signup: Panel
 
 func _ready() -> void:
-	if !IPExtension.ip_fetched:
-		await IPExtension.ip_just_fetched
+	SilentWolf.configure({
+	"api_key": "UxSsii49Eq4avnqUVMkyv1RnPBDZtKfr9etI311m",
+	"game_id": "powercord",
+	"log_level": 0
+	})
+	SilentWolf.configure_scores({
+	"open_scene_on_close": "res://scenes/MainPage.tscn"
+	})
+	SilentWolf.configure_auth({})
 	
-	var err: Error = RoomHandler.join_lobby() if !server else ERR_LOCKED
-	print(error_string(err) if !server else "Creating server...")
-	if err != OK:
-		color_rect.color = Color.RED
-		if server:
-			if RoomHandler.host_lobby() == OK:
-				print("Server creation successful")
-				color_rect.color = Color.GREEN
-				RoomHandler.client_joined.connect(_client_joined)
+	SilentWolf.Auth.sw_login_complete.connect(_login_complete)
+	SilentWolf.Auth.sw_registration_complete.connect(_registration_complete)
 
-func _client_joined(_id: int):
-	print("Client joined successfully")
-	color_rect.color = Color.BLUE
+
+func _open_login_screen() -> void:
+	if login:
+		return
+	if signup:
+		signup.queue_free()
+	login = LOGIN.instantiate()
+	add_child(login)
+	login.log_in.connect(log_in_attempt)
+	login.sign_up.connect(_open_sign_up_screen)
+
+func _open_sign_up_screen() -> void:
+	if signup:
+		return
+	if login:
+		login.queue_free()
+	signup = SIGNUP.instantiate()
+	add_child(signup)
+	signup.sign_up.connect(sign_up_attempt)
+	signup.log_in.connect(_open_login_screen)
+
+func log_in_attempt(username: String, password: String, remember_me: bool = true) -> void:
+	SilentWolf.Auth.login_player(username, password, remember_me)
+	if str(SilentWolf.Auth.logged_in_player) == username:
+		print("Signed in as %s !" % username)
+		login.queue_free()
+
+func sign_up_attempt(email: String, username: String, password: String) -> void:
+	SilentWolf.Auth.register_player(username, email, password, password)
+
+var login_error_generator: ExtraFeatures = ExtraFeatures.new()
+func _login_complete(sw_result: Dictionary) -> void:
+	if sw_result.success:
+		login.queue_free()
+	else:
+		login_error_generator.error(str(sw_result.error), login.error_label)
+
+var registration_error_generator: ExtraFeatures = ExtraFeatures.new()
+func _registration_complete(sw_result: Dictionary) -> void:
+	if sw_result.success:
+		signup.queue_free()
+	else:
+		registration_error_generator.error("Backend registration failed with error:\n" + str(sw_result.error), signup.error_label)

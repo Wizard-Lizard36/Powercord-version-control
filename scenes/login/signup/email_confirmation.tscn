@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://b7s2io2bt77le"]
+
+[ext_resource type="Script" uid="uid://b0tfi2iq5fidx" path="res://scenes/login/signup/email_confirmation.gd" id="1_3hi26"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.19076231, 0.19076234, 0.19076225, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 7
+
+[node name="EmailConfirmation" type="Panel" unique_id=5827055 node_paths=PackedStringArray("error_label")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -338.0
+offset_right = 350.0
+offset_bottom = 338.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_to7om")
+script = ExtResource("1_3hi26")
+error_label = NodePath("ErrorLabel")
+
+[node name="Title" type="Label" parent="." unique_id=173886674]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -285.0
+offset_top = 56.0
+offset_right = 285.0
+offset_bottom = 166.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Email comfirmation"
+
+[node name="PleaseEnter" type="Label" parent="." unique_id=208808117]
+custom_minimum_size = Vector2(548, 87)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -195.0
+offset_right = 280.0
+offset_bottom = -108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "Please enter the one-time verification code sent to your email."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LoginDetails" type="VBoxContainer" parent="." unique_id=2102213205]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -60.0
+offset_right = 250.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="EmailPrompt" type="LineEdit" parent="LoginDetails" unique_id=1212923809]
+custom_minimum_size = Vector2(500, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "One-time verification code"
+max_length = 254
+caret_blink = true
+
+[node name="Resend" type="RichTextLabel" parent="LoginDetails" unique_id=1607397830]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[url=resend][color=#12d3e0]Resend email.[/color][/url]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Submit" type="Button" parent="." unique_id=2013811496]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -215.0
+offset_right = 107.0
+offset_bottom = -124.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 60
+text = "Submit"
+
+[node name="ErrorLabel" type="Label" parent="." unique_id=859519051]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 70.0
+offset_right = 20.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="meta_clicked" from="LoginDetails/Resend" to="." method="_on_resend_meta_clicked"]

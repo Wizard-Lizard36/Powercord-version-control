@@ -1,0 +1,151 @@
+[gd_scene format=3 uid="uid://bt2yw2vyn3jq3"]
+
+[ext_resource type="Script" uid="uid://d031p0txmfq5v" path="res://scenes/login/signup/signup.gd" id="1_0gpv0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.19076231, 0.19076234, 0.19076225, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 7
+
+[node name="SignUp" type="Panel" unique_id=5827055 node_paths=PackedStringArray("email_prompt", "username_prompt", "password_prompt", "password_re_prompt", "error_label")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -400.0
+offset_right = 350.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_to7om")
+script = ExtResource("1_0gpv0")
+email_prompt = NodePath("SignUpDetails/EmailPrompt")
+username_prompt = NodePath("SignUpDetails/UsernamePrompt")
+password_prompt = NodePath("SignUpDetails/PasswordPrompt")
+password_re_prompt = NodePath("SignUpDetails/PasswordRePrompt")
+error_label = NodePath("ErrorLabel")
+
+[node name="Title" type="Label" parent="." unique_id=173886674]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -105.0
+offset_top = 40.0
+offset_right = 105.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Sign up"
+
+[node name="SignUpDetails" type="VBoxContainer" parent="." unique_id=2102213205]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -87.0
+offset_right = 250.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="EmailPrompt" type="LineEdit" parent="SignUpDetails" unique_id=1212923809]
+custom_minimum_size = Vector2(500, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Email"
+max_length = 254
+caret_blink = true
+
+[node name="UsernamePrompt" type="LineEdit" parent="SignUpDetails" unique_id=1129135307]
+custom_minimum_size = Vector2(500, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Username"
+max_length = 26
+caret_blink = true
+
+[node name="PasswordPrompt" type="LineEdit" parent="SignUpDetails" unique_id=121057554]
+custom_minimum_size = Vector2(500, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Password"
+max_length = 30
+caret_blink = true
+secret = true
+
+[node name="PasswordRePrompt" type="LineEdit" parent="SignUpDetails" unique_id=437809542]
+custom_minimum_size = Vector2(500, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Re-enter Password"
+max_length = 30
+caret_blink = true
+secret = true
+
+[node name="Submit" type="Button" parent="." unique_id=2013811496]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -107.0
+offset_top = -231.0
+offset_right = 107.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 60
+text = "Submit"
+
+[node name="LogIn" type="RichTextLabel" parent="." unique_id=271552329]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -232.25
+offset_top = -91.0
+offset_right = 232.25
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/underline_alpha = 100
+theme_override_font_sizes/normal_font_size = 23
+bbcode_enabled = true
+text = "Already have an account? [url=log_in][color=#12d3e0]Log in[/color][/url] instead."
+
+[node name="ErrorLabel" type="Label" parent="." unique_id=859519051]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 89.5
+offset_right = 20.0
+offset_bottom = 164.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Submit" to="." method="_on_submit_pressed"]
+[connection signal="meta_clicked" from="LogIn" to="." method="_on_sign_up_meta_clicked"]

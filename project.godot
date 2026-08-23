@@ -17,8 +17,10 @@ config/icon="res://misc/icon.svg"
 
 [autoload]
 
-RoomHandler="*uid://ibnvq4xpfau5"
-IPExtension="*uid://bjruwuaa24ogs"
+SilentWolf="*uid://slj237kagbng"
+Sender="*uid://dk3pc36j5w1no"
+GlobalVariables="*uid://chd0dj75ptiiv"
+Talo="*uid://bpmdn8oc34pg7"
 
 [display]
 
@@ -27,6 +29,10 @@ window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg", "res://addons/talo/plugin.cfg")
 
 [physics]
 

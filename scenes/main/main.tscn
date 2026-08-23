@@ -1,22 +1,38 @@
 [gd_scene format=3 uid="uid://dvg46apegllbh"]
 
 [ext_resource type="Script" uid="uid://bqdxsbb8cur8u" path="res://scenes/main/main.gd" id="1_hyk8p"]
+[ext_resource type="Texture2D" uid="uid://iy5o4jo6kb5e" path="res://misc/logged_out.png" id="2_k2fmo"]
+[ext_resource type="Script" uid="uid://cwl346lngnhs3" path="res://scenes/main/profile.gd" id="3_k2fmo"]
 
-[node name="Main" type="Control" unique_id=355544015 node_paths=PackedStringArray("color_rect")]
-layout_mode = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6r5p"]
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+
+[node name="Main" type="Panel" unique_id=1085308324]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c6r5p")
 script = ExtResource("1_hyk8p")
-color_rect = NodePath("ColorRect")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1536203698]
+[node name="Profile" type="MenuButton" parent="." unique_id=248798832]
+texture_filter = 3
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 1, 0, 1)
+offset_left = -108.0
+offset_top = 4.0
+offset_right = -12.0
+offset_bottom = 100.0
+grow_horizontal = 0
+icon = ExtResource("2_k2fmo")
+expand_icon = true
+item_count = 1
+popup/item_0/text = "Test test"
+popup/item_0/id = 0
+script = ExtResource("3_k2fmo")
+
+[connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]
+[connection signal="pressed" from="Profile" to="Profile" method="_on_pressed"]
