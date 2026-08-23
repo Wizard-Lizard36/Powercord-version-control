@@ -17,7 +17,6 @@ config/icon="res://misc/icon.svg"
 
 [autoload]
 
-SilentWolf="*uid://slj237kagbng"
 Sender="*uid://dk3pc36j5w1no"
 GlobalVariables="*uid://chd0dj75ptiiv"
 Talo="*uid://bpmdn8oc34pg7"
