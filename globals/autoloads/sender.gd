@@ -24,8 +24,8 @@ const Keys: Dictionary = {
 
 ## Sends "message" to "recipient" with optional "image".
 ## Message is shown as being from "sender".
-func send_message(sender: String, recipient: String, message: String, image: Image = null):
-	SilentWolf.Scores.save_score(
-			sender, 0, Keys.Messages, {Keys.Recipient : recipient, Keys.Message : message.to_utf8_buffer(),
-			Keys.Attachments : {Keys.AttachmentImage : image.save_jpg_to_buffer(IMAGE_QUALITY) if image else PackedByteArray([])}}
-			)
+#func send_message(sender: String, recipient: String, message: String, image: Image = null):
+	#SilentWolf.Scores.save_score(
+			#sender, 0, Keys.Messages, {Keys.Recipient : recipient, Keys.Message : message.to_utf8_buffer(),
+			#Keys.Attachments : {Keys.AttachmentImage : image.save_jpg_to_buffer(IMAGE_QUALITY) if image else PackedByteArray([])}}
+			#)

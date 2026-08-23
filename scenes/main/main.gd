@@ -2,23 +2,25 @@ extends Control
 
 const LOGIN = preload("uid://4cv5jv1to8tf")
 const SIGNUP = preload("uid://bt2yw2vyn3jq3")
+const EMAIL_CONFIRMATION = preload("uid://b7s2io2bt77le")
 
 var login: Panel
 var signup: Panel
+var email_confirmation: Panel
+
+var remember_me: bool = false:
+	set(new_val):
+		remember_me = new_val
+		Config.set_config_value("QOL", "remember_me", remember_me)
 
 func _ready() -> void:
-	SilentWolf.configure({
-	"api_key": "UxSsii49Eq4avnqUVMkyv1RnPBDZtKfr9etI311m",
-	"game_id": "powercord",
-	"log_level": 0
-	})
-	SilentWolf.configure_scores({
-	"open_scene_on_close": "res://scenes/MainPage.tscn"
-	})
-	SilentWolf.configure_auth({})
-	
-	SilentWolf.Auth.sw_login_complete.connect(_login_complete)
-	SilentWolf.Auth.sw_registration_complete.connect(_registration_complete)
+	remember_me = Config.get_config_value("QOL", "remember_me")
+	if remember_me:
+		Talo.player_auth.start_session()
+	Talo.player_auth.session_found.connect(_session_found)
+
+func _session_found():
+	GlobalVariables.logged_in = true
 
 
 func _open_login_screen() -> void:
@@ -41,25 +43,44 @@ func _open_sign_up_screen() -> void:
 	signup.sign_up.connect(sign_up_attempt)
 	signup.log_in.connect(_open_login_screen)
 
-func log_in_attempt(username: String, password: String, remember_me: bool = true) -> void:
-	SilentWolf.Auth.login_player(username, password, remember_me)
-	if str(SilentWolf.Auth.logged_in_player) == username:
-		print("Signed in as %s !" % username)
+func open_email_confirmation_screen():
+	if email_confirmation:
+		return
+	if login:
 		login.queue_free()
-
-func sign_up_attempt(email: String, username: String, password: String) -> void:
-	SilentWolf.Auth.register_player(username, email, password, password)
+	if signup:
+		signup.queue_free()
+	email_confirmation = EMAIL_CONFIRMATION.instantiate()
+	add_child(email_confirmation)
 
 var login_error_generator: ExtraFeatures = ExtraFeatures.new()
-func _login_complete(sw_result: Dictionary) -> void:
-	if sw_result.success:
-		login.queue_free()
-	else:
-		login_error_generator.error(str(sw_result.error), login.error_label)
+func log_in_attempt(username: String, password: String, _remember_me: bool = true) -> void:
+	remember_me = _remember_me
+	var res: PlayerAuthAPI.LoginResult = await Talo.player_auth.login(username, password)
+	match res:
+		Talo.player_auth.LoginResult.FAILED:
+			match Talo.player_auth.last_error.get_code():
+				TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
+					login_error_generator.error("Username or password is incorrect", login.error_label)
+				_:
+					login_error_generator.error(Talo.player_auth.last_error.get_string(), login.error_label)
+		Talo.player_auth.LoginResult.VERIFICATION_REQUIRED:
+			open_email_confirmation_screen()
+		Talo.player_auth.LoginResult.OK:
+			GlobalVariables.logged_in = true
+			login.queue_free()
 
 var registration_error_generator: ExtraFeatures = ExtraFeatures.new()
-func _registration_complete(sw_result: Dictionary) -> void:
-	if sw_result.success:
-		signup.queue_free()
+func sign_up_attempt(email: String, username: String, password: String) -> void:
+	var res = await Talo.player_auth.register(username, password, email, true)
+	if res != OK:
+		match Talo.player_auth.last_error.get_code():
+			TaloAuthError.ErrorCode.IDENTIFIER_TAKEN:
+				registration_error_generator.error("Username is already taken.", signup.error_label)
+			TaloAuthError.ErrorCode.IDENTIFIER_PROFANITY:
+				registration_error_generator.error("Username is not allowed.", signup.error_label)
+			_:
+				registration_error_generator.error(Talo.player_auth.last_error.get_string(), signup.error_label)
 	else:
-		registration_error_generator.error("Backend registration failed with error:\n" + str(sw_result.error), signup.error_label)
+		GlobalVariables.logged_in = true
+		signup.queue_free()

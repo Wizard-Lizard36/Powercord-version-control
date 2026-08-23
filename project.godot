@@ -20,6 +20,7 @@ config/icon="res://misc/icon.svg"
 Sender="*uid://dk3pc36j5w1no"
 GlobalVariables="*uid://chd0dj75ptiiv"
 Talo="*uid://bpmdn8oc34pg7"
+Config="*uid://cow8ngcxyim5a"
 
 [display]
 
@@ -31,7 +32,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/silent_wolf/plugin.cfg", "res://addons/talo/plugin.cfg")
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [physics]
 

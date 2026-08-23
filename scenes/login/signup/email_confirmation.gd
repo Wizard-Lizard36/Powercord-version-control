@@ -1,9 +1,21 @@
 extends Panel
 
-var confirmation_player_name: String = ""
+signal verify_complete(success: bool)
 
 @export var error_label: Label
+@export var code_prompt: LineEdit
 
-func _on_resend_meta_clicked(meta: Variant) -> void:
-	if str(meta) == "resend":
-		SilentWolf.Auth.resend_conf_code(confirmation_player_name)
+var error_generator: ExtraFeatures = ExtraFeatures.new()
+func _on_submit_pressed() -> void:
+	var res: Error = await Talo.player_auth.verify(code_prompt.text)
+	if res != OK:
+		match Talo.player_auth.last_error.get_code():
+			TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
+				error_generator.error("Verification code is incorrect", error_label)
+			_:
+				error_generator.error(Talo.player_auth.last_error.get_string(), error_label)
+		verify_complete.emit(false)
+	else:
+		GlobalVariables.logged_in = true
+		verify_complete.emit(true)
+		queue_free()

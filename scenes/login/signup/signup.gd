@@ -32,9 +32,6 @@ func _on_submit_pressed() -> void:
 				or (password_prompt.text.left(1).is_valid_int() and password_prompt.text.right(-1).is_valid_ascii_identifier()):
 		error_generator.error("Entered password must contain at least 1 special character.", error_label)
 		return
-	elif password_prompt.text == password_prompt.text.to_lower() or password_prompt.text == password_prompt.text.to_upper():
-		error_generator.error("Entered password must contain at least 1 uppercase and lowercase character.\n(sorry this is a silent wolf thing I don't make the rules.)", error_label)
-		return
 	
 	sign_up.emit(email_prompt.text, username_prompt.text, password_prompt.text)
 	await error_generator.finished
