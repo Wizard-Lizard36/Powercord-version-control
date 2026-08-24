@@ -1,17 +1,14 @@
 extends Node
 
+signal connection_changed(online: bool)
+
 const IMAGE_QUALITY = 0.75
 const INTERNET_CHECK_INTERVAL = 3
 
-const Keys: Dictionary = {
-	Messages = "messages",
-	Recipient = "recipient",
-	Message = "message",
-	Attachments = "attachments",
-	AttachmentImage = "image"
-}
-
-var has_internet: bool = false
+var online: bool = false:
+	set(connection):
+		online = connection
+		connection_changed.emit(online)
 
 var internet_timer: Timer = Timer.new()
 var internet_checker: HTTPRequest = HTTPRequest.new()
@@ -23,17 +20,11 @@ func _ready() -> void:
 	add_child(internet_checker)
 
 
-
-## Sends "message" to "recipient" with optional "image".
-## Message is shown as being from "sender".
-func send_message(sender: String, recipient: String, message: String, image: Image = null):
-	pass
-
 func _on_internet_timer_timeout() -> void:
 	if _check_for_internet() == false:
-		has_internet = false
+		online = false
 
-## Returning true DOES NOT necessarily mean that the request was successful.
+## Returning true DOES NOT necessarily mean that the request was successful. Conflictingly
 func _check_for_internet() -> bool:
 	var url = "https://wizard-lizard36.github.io/Power-cord/" 
 	var error = internet_checker.request(url)
@@ -45,6 +36,6 @@ func _check_for_internet() -> bool:
 
 func _request_completed(result: int, response_code: int, _headers):
 	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200:
-		has_internet = true
+		online = true
 	else:
-		has_internet = false
+		online = false

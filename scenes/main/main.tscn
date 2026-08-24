@@ -51,5 +51,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[connection signal="open_friends_list" from="Profile" to="." method="_open_friends_screen"]
 [connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]
 [connection signal="pressed" from="Profile" to="Profile" method="_on_pressed"]

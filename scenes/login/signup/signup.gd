@@ -13,6 +13,11 @@ const ERROR_FADE_TIME = 3
 
 @export var error_label: Label
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		queue_free()
+		accept_event()
+
 func _on_sign_up_meta_clicked(meta: Variant) -> void:
 	if str(meta) == "log_in":
 		log_in.emit()

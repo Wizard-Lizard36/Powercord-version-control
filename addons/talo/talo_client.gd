@@ -131,7 +131,7 @@ func _build_headers(extra_headers: Array[String] = []) -> Array[String]:
 			"X-Talo-Player: %s" % Talo.current_player.id,
 		])
 
-	var session_token := Talo.player_auth.session_manager.get_session_token()
+	var session_token: String = Talo.player_auth.session_manager.get_session_token()
 	if not session_token.is_empty():
 		headers.append("X-Talo-Session: %s" % session_token)
 
