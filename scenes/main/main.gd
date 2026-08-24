@@ -13,6 +13,7 @@ var remember_me: bool = false:
 		remember_me = new_val
 		Config.set_config_value("QOL", "remember_me", remember_me)
 
+
 func _ready() -> void:
 	remember_me = Config.get_config_value("QOL", "remember_me")
 	if remember_me:
@@ -21,6 +22,7 @@ func _ready() -> void:
 
 func _session_found():
 	GlobalVariables.logged_in = true
+
 
 
 func _open_login_screen() -> void:

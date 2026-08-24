@@ -29,10 +29,27 @@ offset_bottom = 100.0
 grow_horizontal = 0
 icon = ExtResource("2_k2fmo")
 expand_icon = true
-item_count = 1
-popup/item_0/text = "Test test"
+item_count = 2
+popup/item_0/text = "Friends"
 popup/item_0/id = 0
+popup/item_1/text = "Profile"
+popup/item_1/id = 1
 script = ExtResource("3_k2fmo")
+
+[node name="VSeparator" type="HSplitContainer" parent="." unique_id=345125232]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 476.0
+grow_vertical = 2
+
+[node name="ServersScrollContainer" type="ScrollContainer" parent="VSeparator" unique_id=1335319047]
+layout_mode = 2
+
+[node name="Servers" type="VBoxContainer" parent="VSeparator/ServersScrollContainer" unique_id=540059696]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]
 [connection signal="pressed" from="Profile" to="Profile" method="_on_pressed"]

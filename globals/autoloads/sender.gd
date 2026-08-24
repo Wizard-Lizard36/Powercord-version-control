@@ -1,6 +1,7 @@
 extends Node
 
 const IMAGE_QUALITY = 0.75
+const INTERNET_CHECK_INTERVAL = 3
 
 const Keys: Dictionary = {
 	Messages = "messages",
@@ -10,22 +11,40 @@ const Keys: Dictionary = {
 	AttachmentImage = "image"
 }
 
-	
-	#SilentWolf.Scores.save_score("Hello there cheesy", 1000000, "main", {"message" : "Hi My Name is cheesemcCheese🍔".to_utf8_buffer()})
-	#
-	#await get_tree().create_timer(0.1).timeout
-	#
-	#var scores: Dictionary = await SilentWolf.Scores.get_scores().sw_get_scores_complete
-	#print(scores)
-	#if scores.success:
-		#for score_info in scores.scores:
-			#print(score_info.player_name + "'s score is %s!" % score_info.score)
-			#SilentWolf.Scores.delete_score(score_info.score_id)
+var has_internet: bool = false
+
+var internet_timer: Timer = Timer.new()
+var internet_checker: HTTPRequest = HTTPRequest.new()
+
+func _ready() -> void:
+	internet_timer.autostart = true
+	internet_timer.wait_time = INTERNET_CHECK_INTERVAL
+	add_child(internet_timer)
+	add_child(internet_checker)
+
+
 
 ## Sends "message" to "recipient" with optional "image".
 ## Message is shown as being from "sender".
-#func send_message(sender: String, recipient: String, message: String, image: Image = null):
-	#SilentWolf.Scores.save_score(
-			#sender, 0, Keys.Messages, {Keys.Recipient : recipient, Keys.Message : message.to_utf8_buffer(),
-			#Keys.Attachments : {Keys.AttachmentImage : image.save_jpg_to_buffer(IMAGE_QUALITY) if image else PackedByteArray([])}}
-			#)
+func send_message(sender: String, recipient: String, message: String, image: Image = null):
+	pass
+
+func _on_internet_timer_timeout() -> void:
+	if _check_for_internet() == false:
+		has_internet = false
+
+## Returning true DOES NOT necessarily mean that the request was successful.
+func _check_for_internet() -> bool:
+	var url = "https://wizard-lizard36.github.io/Power-cord/" 
+	var error = internet_checker.request(url)
+	
+	if error != OK:
+		print("Internet request failed.")
+		return false
+	return true
+
+func _request_completed(result: int, response_code: int, _headers):
+	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200:
+		has_internet = true
+	else:
+		has_internet = false
