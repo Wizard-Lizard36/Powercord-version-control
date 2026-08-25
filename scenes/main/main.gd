@@ -3,6 +3,7 @@ extends Control
 const LOGIN = preload("uid://4cv5jv1to8tf")
 const SIGNUP = preload("uid://bt2yw2vyn3jq3")
 const EMAIL_CONFIRMATION = preload("uid://b7s2io2bt77le")
+const FRIENDS = preload("uid://c2y5l3lbbsku6")
 
 var login: Panel
 var signup: Panel
@@ -16,6 +17,7 @@ var remember_me: bool = false:
 
 
 func _ready() -> void:
+	OnlineSaves.load_latest()
 	remember_me = Config.get_config_value("QOL", "remember_me")
 	if remember_me:
 		Talo.player_auth.start_session()
@@ -105,3 +107,5 @@ func _open_friends_screen() -> void:
 		return
 	clear_screens(friends)
 	
+	friends = FRIENDS.instantiate()
+	add_child(friends)

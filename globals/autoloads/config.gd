@@ -22,4 +22,5 @@ func get_config_value(section: String, key: String) -> Variant:
 	
 	var reading: ConfigFile = ConfigFile.new()
 	reading.load(CONFIG_PATH)
-	return reading.get_value(section, key)
+	
+	return reading.get_value(section, key, DEFAULT_CONFIG[section][1])

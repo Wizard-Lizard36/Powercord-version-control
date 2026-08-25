@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cqf3flj3g6qt4" path="res://scenes/friends/friends.gd" id="1_1lhq8"]
 [ext_resource type="Texture2D" uid="uid://b2kvdb6rkvfya" path="res://misc/X.png" id="2_d0003"]
+[ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="3_7b7en"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
 content_margin_left = 0.0
@@ -15,7 +16,14 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 corner_detail = 7
 
-[node name="Friends" type="Panel" unique_id=1427504495]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffgno"]
+bg_color = Color(0.15487584, 0.15487605, 0.15487596, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Friends" type="Panel" unique_id=1427504495 node_paths=PackedStringArray("friends_list", "add_popup", "username_prompt", "friends_save", "error_label")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,6 +37,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_to7om")
 script = ExtResource("1_1lhq8")
+friends_list = NodePath("FriendsScrollContainer/FriendsList")
+add_popup = NodePath("AddPopup")
+username_prompt = NodePath("AddPopup/MarginContainer/VBoxContainer/UsernamePrompt")
+friends_save = NodePath("FriendsSave")
+error_label = NodePath("AddPopup/MarginContainer/ErrorLabel")
 
 [node name="Title" type="Label" parent="." unique_id=592103655]
 layout_mode = 1
@@ -110,3 +123,59 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 40
 text = "Add Friend"
+
+[node name="AddPopup" type="PopupPanel" parent="." unique_id=234734184]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(300, 156)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffgno")
+
+[node name="MarginContainer" type="MarginContainer" parent="AddPopup" unique_id=1115173865]
+offset_right = 300.0
+offset_bottom = 156.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AddPopup/MarginContainer" unique_id=133695770]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="AddPopup/MarginContainer/VBoxContainer" unique_id=1402041539]
+layout_mode = 2
+text = "Enter username:"
+
+[node name="HSeparator1" type="Control" parent="AddPopup/MarginContainer/VBoxContainer" unique_id=1824365652]
+layout_mode = 2
+
+[node name="UsernamePrompt" type="LineEdit" parent="AddPopup/MarginContainer/VBoxContainer" unique_id=1512669311]
+layout_mode = 2
+
+[node name="HSeparator2" type="Control" parent="AddPopup/MarginContainer/VBoxContainer" unique_id=826648133]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Confirm" type="Button" parent="AddPopup/MarginContainer/VBoxContainer" unique_id=1423331928]
+custom_maximum_size = Vector2(150, -1)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(57.5, 0)
+offset_transform_visual_only = false
+text = "Add Player"
+
+[node name="ErrorLabel" type="Label" parent="AddPopup/MarginContainer" unique_id=453626836]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, 13)
+offset_transform_visual_only = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FriendsSave" type="Node" parent="." unique_id=1579174698]
+script = ExtResource("3_7b7en")
+id = "friend_loadable"
+metadata/_custom_type_script = "uid://dhqqjo87586ou"
+
+[connection signal="pressed" from="X" to="." method="_on_x_pressed"]
+[connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
+[connection signal="pressed" from="AddPopup/MarginContainer/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]

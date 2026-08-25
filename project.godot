@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Power cord"
 run/main_scene="uid://dvg46apegllbh"
+config/auto_accept_quit=false
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://misc/icon.svg"
 
@@ -22,6 +23,7 @@ GlobalVariables="*uid://chd0dj75ptiiv"
 Talo="*uid://bpmdn8oc34pg7"
 Config="*uid://cow8ngcxyim5a"
 Servers="*uid://jul6he7k3gpy"
+OnlineSaves="*uid://b36fhe3pwx05d"
 
 [display]
 
