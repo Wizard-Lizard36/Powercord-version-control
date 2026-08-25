@@ -33,12 +33,11 @@ func save_to_latest():
 		await Talo.saves.create_save("save")
 		save_to_latest()
 	else:
-		Talo.saves.current = Talo.saves.latest
+		Talo.saves.choose_save(Talo.saves.latest)
 		Talo.saves.update_current_save()
 
 func _saves_loaded() -> void:
 	saves_loaded.emit()
-	Talo.saves.choose_save(Talo.saves.latest if save_type == SaveType.LATEST else Talo.saves.current)
 
 func _save_chosen() -> void:
 	save_chosen.emit()
