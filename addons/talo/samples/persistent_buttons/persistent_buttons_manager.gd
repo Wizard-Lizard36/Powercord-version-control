@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var username: String = "username"
+@export var username: String = "The 34th WizardLizard"
 
 func _ready() -> void:
 	Talo.players.identified.connect(_on_identified)

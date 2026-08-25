@@ -17,17 +17,19 @@ var remember_me: bool = false:
 
 
 func _ready() -> void:
-	OnlineSaves.load_latest()
 	remember_me = Config.get_config_value("QOL", "remember_me")
 	if remember_me:
 		Talo.player_auth.start_session()
 	Talo.player_auth.session_found.connect(_session_found)
 	Talo.player_auth.session_not_found.connect(_session_not_found)
 
-## Emitted if the user does not need to re log-in.
+## Emitted if the user does not need to log in again.
 func _session_found() -> void:
 	GlobalVariables.logged_in = true
-## Emitted if the user does need to re log-in.
+	Talo.players.identify("username", Config.get_config_value("UserInfo", "username"))
+	await get_tree().create_timer(1).timeout
+
+## Emitted if the user does need to log in again.
 func _session_not_found() -> void:
 	GlobalVariables.session_not_found = true
 
@@ -38,32 +40,35 @@ var login_error_generator: ExtraFeatures = ExtraFeatures.new()
 ## Attempt to log the player in using Talo's player authentication.
 func log_in_attempt(username: String, password: String, _remember_me: bool = true) -> void:
 	remember_me = _remember_me
-	var res: PlayerAuthAPI.LoginResult = await Talo.player_auth.login(username, password)
-	match res:
-		Talo.player_auth.LoginResult.FAILED:
-			match Talo.player_auth.last_error.get_code():
-				TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
-					login_error_generator.error("Username or password is incorrect", login.error_label)
-				_:
-					login_error_generator.error(Talo.player_auth.last_error.get_string(), login.error_label)
-		Talo.player_auth.LoginResult.VERIFICATION_REQUIRED:
-			open_email_confirmation_screen()
-		Talo.player_auth.LoginResult.OK:
-			GlobalVariables.logged_in = true
-			login.queue_free()
+	var res: PlayerAuthAPI.PlayerAuthLoginResult = await Talo.player_auth.login(username, password)
+	if res.verification_required:
+		open_email_confirmation_screen()
+		
+	elif res.success:
+		GlobalVariables.logged_in = true
+		login.queue_free()
+		Config.set_config_value("UserInfo", "username", username)
+	else:
+		match res.error.code:
+			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
+				login_error_generator.error("Username or password is incorrect", login.error_label)
+			_:
+				login_error_generator.error(Talo.player_auth.last_error.get_string(), login.error_label)
+
+
 
 var registration_error_generator: ExtraFeatures = ExtraFeatures.new()
 ## Attempt to sign the player up using Talo's player authentication.
 func sign_up_attempt(email: String, username: String, password: String) -> void:
 	var res = await Talo.player_auth.register(username, password, email, true)
-	if res != OK:
-		match Talo.player_auth.last_error.get_code():
-			TaloAuthError.ErrorCode.IDENTIFIER_TAKEN:
+	if !res.success:
+		match res.error.code:
+			TaloPlayerAuthError.ErrorCode.IDENTIFIER_TAKEN:
 				registration_error_generator.error("Username is already taken.", signup.error_label)
-			TaloAuthError.ErrorCode.IDENTIFIER_PROFANITY:
+			TaloPlayerAuthError.ErrorCode.IDENTIFIER_PROFANITY:
 				registration_error_generator.error("Username is not allowed.", signup.error_label)
 			_:
-				registration_error_generator.error(Talo.player_auth.last_error.get_string(), signup.error_label)
+				registration_error_generator.error(res.error.message, signup.error_label)
 	else:
 		GlobalVariables.logged_in = true
 		signup.queue_free()

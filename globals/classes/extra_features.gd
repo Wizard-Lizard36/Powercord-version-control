@@ -8,7 +8,7 @@ var error_life_time: float = 5
 var error_fade_time: float = 1
 
 var error_tween: Tween
-## Makes "output_label"'s text property equal "message" and then fades it over time.
+## Makes "output_label"'s text property equal "message" and then fades it over time using modulate.
 func error(message: String, output_label: Control):
 	if error_tween and error_tween.is_running():
 		error_tween.kill()

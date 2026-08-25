@@ -41,5 +41,6 @@ func _on_confirm_pressed() -> void:
 		friends_save.friends.append(alias)
 		OnlineSaves.save_to_latest()
 		update_list()
+		add_popup.queue_free()
 	else:
 		error_generator.error("Entered username does not exist.", error_label)

@@ -7,10 +7,10 @@ signal verify_complete(success: bool)
 
 var error_generator: ExtraFeatures = ExtraFeatures.new()
 func _on_submit_pressed() -> void:
-	var res: Error = await Talo.player_auth.verify(code_prompt.text)
-	if res != OK:
-		match Talo.player_auth.last_error.get_code():
-			TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
+	var res: PlayerAuthAPI.PlayerAuthResult = await Talo.player_auth.verify(code_prompt.text)
+	if !res.success:
+		match res.error.code:
+			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
 				error_generator.error("Verification code is incorrect", error_label)
 			_:
 				error_generator.error(Talo.player_auth.last_error.get_string(), error_label)

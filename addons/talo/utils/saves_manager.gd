@@ -103,7 +103,7 @@ func set_chosen_save(save: TaloGameSave, load_save: bool) -> void:
 	if not load_save:
 		return
 
-	Talo.saves.save_chosen.emit(save)
+	Talo.saves.save_chosen.emit()
 	_match_loadables(save)
 
 func _match_loadables(save: TaloGameSave) -> void:
