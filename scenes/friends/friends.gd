@@ -5,26 +5,33 @@ extends Panel
 @export var username_prompt: LineEdit
 @export var error_label: Label
 
-var friends: Array[String] = []
 
 func _ready() -> void:
 	update_list()
-	Talo.saves.save_loading_completed.connect(update_list)
+
+func _process(_delta: float) -> void:
+	if friends_list.get_child_count() == 0:
+		update_list()
 
 
 func update_list() -> void:
-	friends = Internet.friends
-	for i in range(friends.size() - friends_list.get_child_count()):
+	for i in range(Internet.friends.size() - friends_list.get_child_count()):
 		var new_button: Button = Button.new()
 		new_button.pressed.connect(_on_friend_alias_pressed.bind(new_button))
 		friends_list.add_child(new_button)
 	for child_number in range(friends_list.get_child_count()):
 		var child: Node = friends_list.get_child(child_number)
 		if child is Button:
-			if friends.size() > child_number:
-				child.text = friends[child_number]
+			if Internet.friends.size() > child_number:
+				child.text = Internet.friends[child_number]
 			else:
 				child.queue_free()
+
+func _on_search_bar_text_changed(new_text: String) -> void:
+	var friends: Array[Button]
+	for child in friends_list.get_children():
+		if child is Button:
+			friends.append(child)
 
 
 func _on_friend_alias_pressed(friend_button: Button):

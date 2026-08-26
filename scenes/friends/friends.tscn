@@ -169,6 +169,7 @@ offset_transform_visual_only = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="text_changed" from="SearchBar" to="." method="_on_search_bar_text_changed"]
 [connection signal="pressed" from="X" to="." method="_on_x_pressed"]
 [connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
 [connection signal="pressed" from="AddPopup/MarginContainer/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
