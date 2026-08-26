@@ -16,6 +16,7 @@ func _on_submit_pressed() -> void:
 				error_generator.error(Talo.player_auth.last_error.get_string(), error_label)
 		verify_complete.emit(false)
 	else:
+		OnlineSaves.load_latest()
 		GlobalVariables.logged_in = true
 		verify_complete.emit(true)
 		queue_free()

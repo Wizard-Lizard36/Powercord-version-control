@@ -4,7 +4,6 @@ const CONFIG_PATH: String = "user://config.cfg"
 
 const DEFAULT_CONFIG: Dictionary = {
 	"QOL" : ["remember_me", false],
-	"UserInfo" : ["username", ""]
 }
 
 

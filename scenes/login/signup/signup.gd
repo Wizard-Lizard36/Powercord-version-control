@@ -24,6 +24,10 @@ func _on_sign_up_meta_clicked(meta: Variant) -> void:
 
 var error_generator: ExtraFeatures = ExtraFeatures.new()
 func _on_submit_pressed() -> void:
+	var res: PlayersAPI.SearchPage = await Talo.players.search(username_prompt.text)
+	if res.count > 0:
+		error_generator.error("Username already exists!", error_label)
+		return
 	if email_prompt.text.is_empty() or username_prompt.text.is_empty() or password_prompt.text.is_empty() or password_re_prompt.text.is_empty():
 		error_generator.error("Please fill out all of the fields!", error_label)
 		return

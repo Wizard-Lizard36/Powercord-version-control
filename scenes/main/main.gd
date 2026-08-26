@@ -10,6 +10,7 @@ var signup: Panel
 var email_confirmation: Panel
 var friends: Panel
 
+
 var remember_me: bool = false:
 	set(new_val):
 		remember_me = new_val
@@ -18,7 +19,7 @@ var remember_me: bool = false:
 
 func _ready() -> void:
 	remember_me = Config.get_config_value("QOL", "remember_me")
-	if remember_me:
+	if remember_me or true:
 		Talo.player_auth.start_session()
 	Talo.player_auth.session_found.connect(_session_found)
 	Talo.player_auth.session_not_found.connect(_session_not_found)
@@ -26,8 +27,7 @@ func _ready() -> void:
 ## Emitted if the user does not need to log in again.
 func _session_found() -> void:
 	GlobalVariables.logged_in = true
-	Talo.players.identify("username", Config.get_config_value("UserInfo", "username"))
-	await get_tree().create_timer(1).timeout
+	OnlineSaves.load_latest()
 
 ## Emitted if the user does need to log in again.
 func _session_not_found() -> void:
@@ -45,9 +45,9 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 		open_email_confirmation_screen()
 		
 	elif res.success:
+		OnlineSaves.load_latest()
 		GlobalVariables.logged_in = true
 		login.queue_free()
-		Config.set_config_value("UserInfo", "username", username)
 	else:
 		match res.error.code:
 			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
@@ -86,7 +86,7 @@ func _open_login_screen() -> void:
 func _open_sign_up_screen() -> void:
 	if signup:
 		return
-	clear_screens(signup)
+	clear_screens()
 	signup = SIGNUP.instantiate()
 	add_child(signup)
 	signup.sign_up.connect(sign_up_attempt)
@@ -95,7 +95,7 @@ func _open_sign_up_screen() -> void:
 func open_email_confirmation_screen():
 	if email_confirmation:
 		return
-	clear_screens(email_confirmation)
+	clear_screens()
 	email_confirmation = EMAIL_CONFIRMATION.instantiate()
 	add_child(email_confirmation)
 
@@ -110,7 +110,7 @@ func clear_screens(exeption: Node = null) -> void:
 func _open_friends_screen() -> void:
 	if friends:
 		return
-	clear_screens(friends)
+	clear_screens()
 	
 	friends = FRIENDS.instantiate()
 	add_child(friends)

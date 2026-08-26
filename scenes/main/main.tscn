@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bqdxsbb8cur8u" path="res://scenes/main/main.gd" id="1_hyk8p"]
 [ext_resource type="Texture2D" uid="uid://iy5o4jo6kb5e" path="res://misc/logged_out.png" id="2_k2fmo"]
 [ext_resource type="Script" uid="uid://cwl346lngnhs3" path="res://scenes/main/profile.gd" id="3_k2fmo"]
+[ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="4_l3cfh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6r5p"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -50,6 +51,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="FriendsSave" type="Node" parent="." unique_id=2034876710]
+script = ExtResource("4_l3cfh")
+id = "friend_loadable"
+metadata/_custom_type_script = "uid://dhqqjo87586ou"
 
 [connection signal="open_friends_list" from="Profile" to="." method="_open_friends_screen"]
 [connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cqf3flj3g6qt4" path="res://scenes/friends/friends.gd" id="1_1lhq8"]
 [ext_resource type="Texture2D" uid="uid://b2kvdb6rkvfya" path="res://misc/X.png" id="2_d0003"]
-[ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="3_7b7en"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
 content_margin_left = 0.0
@@ -23,7 +22,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[node name="Friends" type="Panel" unique_id=1427504495 node_paths=PackedStringArray("friends_list", "add_popup", "username_prompt", "friends_save", "error_label")]
+[node name="Friends" type="Panel" unique_id=1427504495 node_paths=PackedStringArray("friends_list", "add_popup", "username_prompt", "error_label")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -40,7 +39,6 @@ script = ExtResource("1_1lhq8")
 friends_list = NodePath("FriendsScrollContainer/FriendsList")
 add_popup = NodePath("AddPopup")
 username_prompt = NodePath("AddPopup/MarginContainer/VBoxContainer/UsernamePrompt")
-friends_save = NodePath("FriendsSave")
 error_label = NodePath("AddPopup/MarginContainer/ErrorLabel")
 
 [node name="Title" type="Label" parent="." unique_id=592103655]
@@ -170,11 +168,6 @@ offset_transform_position = Vector2(0, 13)
 offset_transform_visual_only = false
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="FriendsSave" type="Node" parent="." unique_id=1579174698]
-script = ExtResource("3_7b7en")
-id = "friend_loadable"
-metadata/_custom_type_script = "uid://dhqqjo87586ou"
 
 [connection signal="pressed" from="X" to="." method="_on_x_pressed"]
 [connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
