@@ -43,14 +43,20 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 476.0
 grow_vertical = 2
+drag_area_highlight_in_editor = true
 
 [node name="ServersScrollContainer" type="ScrollContainer" parent="VSeparator" unique_id=1335319047]
+custom_minimum_size = Vector2(476, 1080)
 layout_mode = 2
 
 [node name="Servers" type="VBoxContainer" parent="VSeparator/ServersScrollContainer" unique_id=540059696]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="VSeparator" unique_id=489569828]
+custom_minimum_size = Vector2(1432, 0)
+layout_mode = 2
 
 [node name="FriendsSave" type="Node" parent="." unique_id=2034876710]
 script = ExtResource("4_l3cfh")
