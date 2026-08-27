@@ -23,6 +23,8 @@ func update_server_list() -> void:
 		server_nodes.pop_back().queue_free()
 	for server: TaloChannel in servers:
 		var button: Button = Button.new()
+		button.add_theme_font_size_override("font_size", 32)
+		button.autowrap_mode = TextServer.AUTOWRAP_WORD
 		button.toggle_mode = true
 		button.button_group = button_group
 		button.text = server.name

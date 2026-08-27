@@ -65,13 +65,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Test" type="Button" parent="ServersSquasher/ServersScrollContainer/ServerList" unique_id=1672462325]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "This is a test server."
-autowrap_mode = 2
-
 [node name="ServerUI" type="Control" parent="ServersSquasher" unique_id=489569828]
 custom_minimum_size = Vector2(1312, 0)
 layout_mode = 2
@@ -87,96 +80,131 @@ grow_vertical = 2
 follow_focus = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer" unique_id=654483127]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=84598552]
+[node name="Test" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=384767677]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test" unique_id=188832691]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test" unique_id=84598552]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test2" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=538442256]
+[node name="Test2" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=57824612]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test2" unique_id=540287413]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test2" unique_id=1868600413]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test3" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1249912225]
+[node name="Test3" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=538715452]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test3" unique_id=477295390]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test3" unique_id=1558186404]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test4" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1093971817]
+[node name="Test4" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1364792554]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test4" unique_id=833941042]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test4" unique_id=1278661633]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test5" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=403516656]
+[node name="Test5" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=277414010]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test5" unique_id=822045278]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test5" unique_id=2136427557]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test6" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1658597069]
+[node name="Test6" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1682497995]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test6" unique_id=188208117]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test6" unique_id=1998856763]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
 fit_content = true
 
-[node name="Test7" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1390617757]
+[node name="Test7" type="VBoxContainer" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1486979373]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
 
-[node name="Test8" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1594044373]
+[node name="Button" type="Button" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test7" unique_id=980734659]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("2_k2fmo")
+flat = true
+alignment = 0
+expand_icon = true
 
-[node name="Test9" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1426413872]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test10" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1826359363]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test11" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=840483554]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test12" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1865067983]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test13" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1780374821]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test14" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=1142768927]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test15" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer" unique_id=2076006402]
+[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/ScrollContainer/VBoxContainer/Test7" unique_id=1662776761]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."

@@ -1,5 +1,114 @@
 [gd_scene format=3 uid="uid://dfm72lr453dkv"]
 
+[ext_resource type="Texture2D" uid="uid://b2kvdb6rkvfya" path="res://misc/X.png" id="1_f0wxe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.19076231, 0.19076234, 0.19076225, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 7
+
 [node name="CreateServer" type="Panel" unique_id=1259348790]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -332.5
+offset_right = 295.0
+offset_bottom = 332.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_to7om")
+
+[node name="Title" type="Label" parent="." unique_id=1061034877]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 32.0
+offset_right = 130.0
+offset_bottom = 87.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Create server"
+
+[node name="Options" type="VBoxContainer" parent="." unique_id=585581422]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 151.5
+offset_right = 466.0
+offset_bottom = 589.5
+
+[node name="ServerName" type="Control" parent="Options" unique_id=599518754]
+custom_minimum_size = Vector2(352, 79.5)
+layout_mode = 2
+
+[node name="ServerNamePrompt" type="Label" parent="Options/ServerName" unique_id=580952566]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -3.0
+offset_right = 133.0
+offset_bottom = 25.0
+theme_override_font_sizes/font_size = 20
+text = "Server name:"
+
+[node name="LineEdit" type="LineEdit" parent="Options/ServerName" unique_id=161619636]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.5
+offset_top = -15.25
+offset_right = 171.0
+offset_bottom = 34.25
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PrivateServer" type="CheckButton" parent="Options" unique_id=1329770371]
+custom_maximum_size = Vector2(190, -1)
+layout_mode = 2
+tooltip_text = "Whether or not players require invites to join."
+theme_override_font_sizes/font_size = 20
+text = "Private server"
+
+[node name="Button" type="Button" parent="." unique_id=646512629]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = -119.0
+offset_right = 92.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 45
+text = "Confirm"
+
+[node name="X" type="Button" parent="." unique_id=603097029]
+self_modulate = Color(0.72464234, 0.72464275, 0.7246423, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 72.0
+grow_horizontal = 0
+icon = ExtResource("1_f0wxe")
+flat = true
+expand_icon = true
