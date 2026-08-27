@@ -34,7 +34,7 @@ func _on_internet_timer_timeout() -> void:
 	if _check_for_internet() == false:
 		online = false
 
-## Returning true DOES NOT necessarily mean that the request was successful. Conflictingly
+## Returning true DOES NOT necessarily mean that the request was successful. On the other hand, returning false DOES mean it WASN'T successful.
 func _check_for_internet() -> bool:
 	var url = "https://wizard-lizard36.github.io/Power-cord/" 
 	var error = internet_checker.request(url)

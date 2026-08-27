@@ -37,10 +37,10 @@ func _on_submit_pressed() -> void:
 	elif password_prompt.text.length() < 8:
 		error_generator.error("Password must be at least 8 characters long.", error_label)
 		return
-	elif (password_prompt.text.is_valid_ascii_identifier() and !password_prompt.text.contains("_"))\
-				or (password_prompt.text.left(1).is_valid_int() and password_prompt.text.right(-1).is_valid_ascii_identifier()):
-		error_generator.error("Entered password must contain at least 1 special character.", error_label)
-		return
+	#elif (password_prompt.text.is_valid_ascii_identifier() and !password_prompt.text.contains("_"))\
+				#or (password_prompt.text.left(1).is_valid_int() and password_prompt.text.right(-1).is_valid_ascii_identifier()):
+		#error_generator.error("Entered password must contain at least 1 special character.", error_label)
+		#return
 	
 	sign_up.emit(email_prompt.text, username_prompt.text, password_prompt.text)
 	await error_generator.finished

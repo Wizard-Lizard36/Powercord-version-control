@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dfm72lr453dkv"]
+
+[node name="CreateServer" type="Panel" unique_id=1259348790]
+offset_right = 40.0
+offset_bottom = 40.0
