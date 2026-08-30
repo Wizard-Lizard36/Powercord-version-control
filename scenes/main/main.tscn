@@ -5,20 +5,13 @@
 [ext_resource type="Script" uid="uid://cwl346lngnhs3" path="res://scenes/main/profile.gd" id="3_k2fmo"]
 [ext_resource type="Script" uid="uid://c65he16h8pf8i" path="res://scenes/main/servers_squasher.gd" id="4_6q06x"]
 [ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="4_l3cfh"]
-<<<<<<< Updated upstream
-[ext_resource type="Script" uid="uid://h65e0yuttq06" path="res://scenes/main/message_list.gd" id="5_ow5a4"]
-=======
 [ext_resource type="Script" uid="uid://bnshtdiu77oi1" path="res://scenes/main/tab_container.gd" id="5_hujxm"]
->>>>>>> Stashed changes
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6r5p"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_6q06x"]
 
-<<<<<<< Updated upstream
-[node name="Main" type="Panel" unique_id=1085308324 node_paths=PackedStringArray("servers_squasher")]
-=======
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ow5a4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hujxm"]
@@ -34,7 +27,6 @@ bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blune"]
 
 [node name="Main" type="Panel" unique_id=1085308324]
->>>>>>> Stashed changes
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -97,22 +89,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MessageScrollContainer" type="ScrollContainer" parent="ServersSquasher/ServerUI" unique_id=1885861707]
-<<<<<<< Updated upstream
-custom_minimum_size = Vector2(1312, 800)
-layout_mode = 2
-follow_focus = true
-
-[node name="MessageList" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer" unique_id=654483127]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("5_ow5a4")
-
-[node name="Test" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=384767677]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test" unique_id=188832691]
-=======
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -145,7 +121,6 @@ metadata/_tab_index = 0
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test" unique_id=188832691]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "The 34th WizardLizard"
@@ -154,27 +129,16 @@ flat = true
 alignment = 0
 expand_icon = true
 
-<<<<<<< Updated upstream
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test" unique_id=84598552]
-=======
 [node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test" unique_id=84598552]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 fit_content = true
 
-<<<<<<< Updated upstream
-[node name="Test2" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=57824612]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test2" unique_id=540287413]
-=======
 [node name="Test2" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer" unique_id=413921262]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test2" unique_id=785728090]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "The 34th WizardLizard"
@@ -183,27 +147,16 @@ flat = true
 alignment = 0
 expand_icon = true
 
-<<<<<<< Updated upstream
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test2" unique_id=1868600413]
-=======
 [node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test2" unique_id=1233870928]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 fit_content = true
 
-<<<<<<< Updated upstream
-[node name="Test3" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=538715452]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test3" unique_id=477295390]
-=======
 [node name="Test3" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer" unique_id=2111899399]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test3" unique_id=1676166306]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "The 34th WizardLizard"
@@ -212,27 +165,16 @@ flat = true
 alignment = 0
 expand_icon = true
 
-<<<<<<< Updated upstream
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test3" unique_id=1558186404]
-=======
 [node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test3" unique_id=2060978468]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 fit_content = true
 
-<<<<<<< Updated upstream
-[node name="Test4" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=1364792554]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test4" unique_id=833941042]
-=======
 [node name="Test4" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer" unique_id=536580034]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test4" unique_id=1210846554]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "The 34th WizardLizard"
@@ -241,27 +183,16 @@ flat = true
 alignment = 0
 expand_icon = true
 
-<<<<<<< Updated upstream
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test4" unique_id=1278661633]
-=======
 [node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test4" unique_id=316827861]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 fit_content = true
 
-<<<<<<< Updated upstream
-[node name="Test5" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=277414010]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test5" unique_id=822045278]
-=======
 [node name="Test5" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer" unique_id=870745624]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test5" unique_id=1588892132]
->>>>>>> Stashed changes
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "The 34th WizardLizard"
@@ -270,53 +201,10 @@ flat = true
 alignment = 0
 expand_icon = true
 
-<<<<<<< Updated upstream
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test5" unique_id=2136427557]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test6" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=1682497995]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test6" unique_id=188208117]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "The 34th WizardLizard"
-icon = ExtResource("2_k2fmo")
-flat = true
-alignment = 0
-expand_icon = true
-
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test6" unique_id=1998856763]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-fit_content = true
-
-[node name="Test7" type="VBoxContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" unique_id=1486979373]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test7" unique_id=980734659]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "The 34th WizardLizard"
-icon = ExtResource("2_k2fmo")
-flat = true
-alignment = 0
-expand_icon = true
-
-[node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/Test7" unique_id=1662776761]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-text = "This is a test sentence to show how messages will look. If this looks strange be sure to fix that. I am now just writing crap to see how it works when it has lots of text."
-=======
 [node name="Test" type="RichTextLabel" parent="ServersSquasher/ServerUI/MessageScrollContainer/MessageList/PlaceholderServer/Test5" unique_id=1656824651]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
->>>>>>> Stashed changes
 fit_content = true
 
 [node name="MessagePrompt" type="TextEdit" parent="ServersSquasher/ServerUI" unique_id=1070550847]
