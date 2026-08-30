@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dfm72lr453dkv"]
 
 [ext_resource type="Texture2D" uid="uid://b2kvdb6rkvfya" path="res://misc/X.png" id="1_f0wxe"]
+[ext_resource type="Script" uid="uid://cryokqgi3epse" path="res://scenes/servers/create_server.gd" id="1_pyvrq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_to7om"]
 content_margin_left = 0.0
@@ -14,45 +15,50 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 corner_detail = 7
 
-[node name="CreateServer" type="Panel" unique_id=1259348790]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -295.0
-offset_top = -332.5
-offset_right = 295.0
-offset_bottom = 332.5
+[node name="CreateServer" type="Panel" unique_id=1259348790 node_paths=PackedStringArray("server_name_prompt", "private_server")]
+anchors_preset = -1
+anchor_left = 0.34635416
+anchor_top = 0.19212963
+anchor_right = 0.6536458
+anchor_bottom = 0.6212963
+offset_bottom = 126.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_to7om")
+script = ExtResource("1_pyvrq")
+server_name_prompt = NodePath("Options/ServerName/ServerNamePrompt")
+private_server = NodePath("Options/PrivateServer")
+metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="Label" parent="." unique_id=1061034877]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -130.0
-offset_top = 32.0
-offset_right = 130.0
-offset_bottom = 87.0
+anchors_preset = -1
+anchor_left = 0.22457626
+anchor_top = 0.0481203
+anchor_right = 0.7754237
+anchor_bottom = 0.1518797
+offset_left = 32.5
+offset_right = -32.5
+offset_bottom = -14.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 50
 text = "Create server"
+metadata/_edit_use_anchors_ = true
 
 [node name="Options" type="VBoxContainer" parent="." unique_id=585581422]
-layout_mode = 0
-offset_left = 113.0
-offset_top = 151.5
-offset_right = 466.0
-offset_bottom = 589.5
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19152543
+anchor_top = 0.25933468
+anchor_right = 0.7898305
+anchor_bottom = 0.74060607
+metadata/_edit_use_anchors_ = true
 
 [node name="ServerName" type="Control" parent="Options" unique_id=599518754]
 custom_minimum_size = Vector2(352, 79.5)
 layout_mode = 2
 
-[node name="ServerNamePrompt" type="Label" parent="Options/ServerName" unique_id=580952566]
+[node name="ServerNameTitle" type="Label" parent="Options/ServerName" unique_id=580952566]
 layout_mode = 0
 offset_left = 5.0
 offset_top = -3.0
@@ -61,7 +67,7 @@ offset_bottom = 25.0
 theme_override_font_sizes/font_size = 20
 text = "Server name:"
 
-[node name="LineEdit" type="LineEdit" parent="Options/ServerName" unique_id=161619636]
+[node name="ServerNamePrompt" type="LineEdit" parent="Options/ServerName" unique_id=161619636]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -82,33 +88,33 @@ tooltip_text = "Whether or not players require invites to join."
 theme_override_font_sizes/font_size = 20
 text = "Private server"
 
-[node name="Button" type="Button" parent="." unique_id=646512629]
+[node name="Confirm" type="Button" parent="." unique_id=646512629]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -92.0
-offset_top = -119.0
-offset_right = 92.0
-offset_bottom = -48.0
+anchors_preset = -1
+anchor_left = 0.34406778
+anchor_top = 0.8210526
+anchor_right = 0.6559322
+anchor_bottom = 0.92781955
+offset_left = 1.5258789e-05
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 45
 text = "Confirm"
+metadata/_edit_use_anchors_ = true
 
 [node name="X" type="Button" parent="." unique_id=603097029]
 self_modulate = Color(0.72464234, 0.72464275, 0.7246423, 1)
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -72.0
-offset_top = 24.0
-offset_right = -24.0
-offset_bottom = 72.0
+anchors_preset = -1
+anchor_left = 0.8779661
+anchor_top = 0.036090225
+anchor_right = 0.95932204
+anchor_bottom = 0.108270675
 grow_horizontal = 0
 icon = ExtResource("1_f0wxe")
 flat = true
 expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="X" to="." method="_on_x_pressed"]

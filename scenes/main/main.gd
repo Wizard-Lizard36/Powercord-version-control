@@ -4,11 +4,15 @@ const LOGIN = preload("uid://4cv5jv1to8tf")
 const SIGNUP = preload("uid://bt2yw2vyn3jq3")
 const EMAIL_CONFIRMATION = preload("uid://b7s2io2bt77le")
 const FRIENDS = preload("uid://c2y5l3lbbsku6")
+const SERVER_CREATION = preload("uid://dfm72lr453dkv")
+
+@export var servers_squasher: HSplitContainer
 
 var login: Panel
 var signup: Panel
 var email_confirmation: Panel
 var friends: Panel
+var server_creation: Panel
 
 
 var remember_me: bool = false:
@@ -32,8 +36,6 @@ func _session_found() -> void:
 ## Emitted if the user does need to log in again.
 func _session_not_found() -> void:
 	GlobalVariables.session_not_found = true
-
-
 
 
 var login_error_generator: ExtraFeatures = ExtraFeatures.new()
@@ -73,6 +75,14 @@ func sign_up_attempt(email: String, username: String, password: String) -> void:
 		GlobalVariables.logged_in = true
 		signup.queue_free()
 
+func create_server(server_name: String, private: bool):
+	var channel_options: ChannelsAPI.CreateChannelOptions = ChannelsAPI.CreateChannelOptions.new()
+	channel_options.auto_cleanup = true
+	channel_options.name = server_name
+	channel_options.private = private
+	await Talo.channels.create(channel_options)
+	await servers_squasher.update_servers()
+	servers_squasher.update_server_list()
 
 func _open_login_screen() -> void:
 	if login:
@@ -114,3 +124,13 @@ func _open_friends_screen() -> void:
 	
 	friends = FRIENDS.instantiate()
 	add_child(friends)
+
+
+func _open_server_creation() -> void:
+	if server_creation:
+		return
+	clear_screens()
+	
+	server_creation = SERVER_CREATION.instantiate()
+	server_creation.create_server.connect(create_server)
+	add_child(server_creation)
