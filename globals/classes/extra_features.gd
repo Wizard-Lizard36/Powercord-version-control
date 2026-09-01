@@ -19,3 +19,10 @@ func error(message: String, output_label: Control):
 	error_tween.tween_property(output_label, "modulate:a", 0, error_fade_time)
 	await error_tween.finished
 	finished.emit()
+
+static func set_all_font_sizes(label: RichTextLabel, font_size: int) -> void:
+	label.add_theme_font_size_override("normal_font", font_size)
+	label.add_theme_font_size_override("bold_font", font_size)
+	label.add_theme_font_size_override("bold_italics_font", font_size)
+	label.add_theme_font_size_override("italics_font", font_size)
+	label.add_theme_font_size_override("mono_font", font_size)
