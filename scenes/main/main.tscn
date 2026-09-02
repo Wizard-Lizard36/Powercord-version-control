@@ -69,7 +69,7 @@ grow_vertical = 2
 drag_area_highlight_in_editor = true
 script = ExtResource("4_6q06x")
 server_list = NodePath("ServersScrollContainer/ServerList")
-message_list = NodePath("ServerUI/MessageScrollContainer/MessageList/PlaceholderServer")
+message_list = NodePath("ServerUI/MessageScrollContainer/MessageList")
 button_group = SubResource("ButtonGroup_6q06x")
 
 [node name="ServersScrollContainer" type="ScrollContainer" parent="ServersSquasher" unique_id=1335319047]
@@ -94,7 +94,6 @@ size_flags_vertical = 3
 follow_focus = true
 
 [node name="MessageList" type="TabContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer" unique_id=1169609522]
-custom_minimum_size = Vector2(1304, 1123)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ow5a4")
 theme_override_styles/tabbar_background = SubResource("StyleBoxEmpty_hujxm")
@@ -210,6 +209,7 @@ layout_mode = 2
 offset_transform_position_ratio = Vector2(0, 0.3)
 offset_transform_visual_only = false
 theme_override_font_sizes/font_size = 32
+tab_input_mode = false
 
 [node name="FriendsSave" type="Node" parent="." unique_id=2034876710]
 script = ExtResource("4_l3cfh")

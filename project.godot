@@ -25,6 +25,10 @@ Config="*uid://cow8ngcxyim5a"
 Servers="*uid://jul6he7k3gpy"
 OnlineSaves="*uid://b36fhe3pwx05d"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/size/viewport_width=1920

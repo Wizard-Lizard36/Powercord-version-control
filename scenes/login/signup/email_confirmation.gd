@@ -13,7 +13,7 @@ func _on_submit_pressed() -> void:
 			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
 				error_generator.error("Verification code is incorrect", error_label)
 			_:
-				error_generator.error(Talo.player_auth.last_error.get_string(), error_label)
+				error_generator.error(res.error.message, error_label)
 		verify_complete.emit(false)
 	else:
 		OnlineSaves.load_latest()

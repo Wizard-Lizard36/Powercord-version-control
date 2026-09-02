@@ -6,7 +6,7 @@ var messages: Dictionary[TaloChannel, Dictionary] = {}
 
 
 @export var server_list: VBoxContainer
-@export var message_list: VBoxContainer
+@export var message_list: TabContainer
 
 @export var button_group: ButtonGroup
 
@@ -16,9 +16,9 @@ func _ready() -> void:
 	await update_servers()
 	update_server_list()
 
-func _on_server_pressed(server: Button) -> void:
+func _on_server_pressed(server: TaloChannel) -> void:
 	var server_name: String = server.name
-	
+	message_list.show_server(server_name)
 
 ## Sets servers to the user's subscribed channels.
 func update_servers() -> Dictionary[String, TaloChannel]:
@@ -36,6 +36,8 @@ func update_server_list() -> void:
 		button.add_theme_font_size_override("font_size", 32)
 		button.autowrap_mode = TextServer.AUTOWRAP_WORD
 		button.toggle_mode = true
+		button.pressed.connect(_on_server_pressed.bind(server))
 		button.button_group = button_group
 		button.text = server.name
 		server_list.add_child(button)
+		message_list.load_server(server)
