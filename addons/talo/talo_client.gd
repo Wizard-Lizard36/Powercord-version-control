@@ -150,7 +150,7 @@ func _build_full_url(url: String) -> String:
 func handle_error(method: HTTPClient.Method, url: String, res: Dictionary) -> void:
 	if res.body != null:
 		if res.body.has("message"):
-			push_error("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.message])
+			push_warning("%s %s [%s]: %s" % [_get_method_name(method), url, res.status, res.body.message])
 			return
 
 		if res.body.has("errors"):

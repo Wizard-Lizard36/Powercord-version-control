@@ -1,5 +1,10 @@
 extends TabContainer
 
+signal set_current_server(server_name: String)
+signal current_server_set
+
+var current_server: TaloChannel
+
 
 func generate_message_data(message: String) -> Dictionary:
 	return {
@@ -11,7 +16,7 @@ func send_message(server: TaloChannel, message: String) -> void:
 	Talo.channels.send_message(server.id, message)
 	
 	var message_datas: Array[String] = server.get_prop_array(GlobalVariables.MESSAGES_PROP_KEY)
-	message_datas.append(generate_message_data(message))
+	message_datas.append(var_to_str(generate_message_data(message)))
 	server.set_prop_array(GlobalVariables.MESSAGES_PROP_KEY, message_datas)
 
 
@@ -74,3 +79,7 @@ func show_server(server_name: String) -> void:
 
 func decode_property(property: String) -> Dictionary:
 	return str_to_var(property) if str_to_var(property) is Dictionary else {}
+
+
+func _current_server_set() -> void:
+	current_server_set.emit()

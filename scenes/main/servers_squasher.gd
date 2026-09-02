@@ -1,5 +1,7 @@
 extends HSplitContainer
 
+signal current_server_set
+
 var servers: Dictionary[String, TaloChannel] = {}
 var server_nodes: Array[Button]
 var messages: Dictionary[TaloChannel, Dictionary] = {}
@@ -41,3 +43,9 @@ func update_server_list() -> void:
 		button.text = server.name
 		server_list.add_child(button)
 		message_list.load_server(server)
+
+
+func _set_current_server(server_name: String) -> void:
+	await update_servers()
+	message_list.current_server = servers.get(server_name, null)
+	current_server_set.emit()
