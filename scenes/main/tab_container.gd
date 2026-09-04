@@ -5,9 +5,6 @@ signal current_server_set
 
 var current_server: TaloChannel
 
-var checking_for_failure: bool = false
-var message_failed: bool = false
-
 @export var message_scroll_container: ScrollContainer
 
 func _ready() -> void:
@@ -28,16 +25,7 @@ func send_message(server: TaloChannel, message: String) -> void:
 		message_datas.append(talo_message_data.value)
 	message_datas.append(var_to_str(generate_message_data(message)))
 	Talo.channels.set_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, message_datas)
-	
-	checking_for_failure = true
-	await get_tree().create_timer(1).timeout
-	checking_for_failure = false
-	
-	if message_failed:
-		message_failed = false
-		return
-	
-	add_message(server, generate_message_data(message))
+
 
 
 func load_server(server: TaloChannel) -> void:
@@ -128,7 +116,3 @@ func _current_server_set() -> void:
 
 func _on_message_prompt_send_message(text: String) -> void:
 	send_message(current_server, text)
-
-func _message_failed(_channel: TaloChannel, _failed_props: Array[TaloRejectedProp]) -> void:
-	if checking_for_failure:
-		message_failed = true
