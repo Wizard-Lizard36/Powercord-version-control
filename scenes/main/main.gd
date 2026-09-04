@@ -64,7 +64,7 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 var registration_error_generator: ExtraFeatures = ExtraFeatures.new()
 ## Attempt to sign the player up using Talo's player authentication.
 func sign_up_attempt(email: String, username: String, password: String) -> void:
-	var res = await Talo.player_auth.register(username, password, email, true)
+	var res: PlayerAuthAPI.PlayerAuthResult = await Talo.player_auth.register(username, password, email, true)
 	if !res.success:
 		match res.error.code:
 			TaloPlayerAuthError.ErrorCode.IDENTIFIER_TAKEN:
@@ -104,7 +104,7 @@ func _open_sign_up_screen() -> void:
 	signup.sign_up.connect(sign_up_attempt)
 	signup.log_in.connect(_open_login_screen)
 
-func open_email_confirmation_screen():
+func open_email_confirmation_screen() -> void:
 	if email_confirmation:
 		return
 	clear_screens()

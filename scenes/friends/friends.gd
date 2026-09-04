@@ -59,7 +59,7 @@ func _on_invite_x_pressed() -> void:
 	invite_popup.hide()
 
 func _on_add_friend_pressed() -> void:
-	add_popup.popup_centered(Vector2(300, 140))
+	add_popup.popup()
 
 
 var error_generator: ExtraFeatures = ExtraFeatures.new()

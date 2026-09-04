@@ -11,7 +11,7 @@ var message_failed: bool = false
 @export var message_scroll_container: ScrollContainer
 
 func _ready() -> void:
-	Talo.channels.message_received.connect(_message_recieved)
+	Talo.channels.channel_storage_props_updated.connect(_message_recieved)
 
 func generate_message_data(message: String) -> Dictionary:
 	return {
@@ -21,7 +21,6 @@ func generate_message_data(message: String) -> Dictionary:
 
 
 func send_message(server: TaloChannel, message: String) -> void:
-	Talo.channels.send_message(server.id, message)
 	
 	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
 	var message_datas: Array[String] = []
@@ -119,8 +118,9 @@ func show_server(server_name: String) -> void:
 func decode_property(property: String) -> Dictionary:
 	return str_to_var(property) if str_to_var(property) is Dictionary else {}
 
-func _message_recieved(server: TaloChannel, _sender_alias: TaloPlayerAlias, message: String) -> void:
-	add_message(server, decode_property(message))
+func _message_recieved(server: TaloChannel, upserted: Array[TaloChannelStorageProp], _deleted: Array[TaloChannelStorageProp]) -> void:
+	if !upserted.is_empty():
+		add_message(server, decode_property(upserted.back().value))
 
 func _current_server_set() -> void:
 	current_server_set.emit()
