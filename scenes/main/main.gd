@@ -28,10 +28,12 @@ func _ready() -> void:
 	Talo.player_auth.session_found.connect(_session_found)
 	Talo.player_auth.session_not_found.connect(_session_not_found)
 
+
 ## Emitted if the user does not need to log in again.
 func _session_found() -> void:
 	GlobalVariables.logged_in = true
 	OnlineSaves.load_latest()
+
 
 ## Emitted if the user does need to log in again.
 func _session_not_found() -> void:
@@ -75,7 +77,7 @@ func sign_up_attempt(email: String, username: String, password: String) -> void:
 		GlobalVariables.logged_in = true
 		signup.queue_free()
 
-func create_server(server_name: String, private: bool):
+func create_server(server_name: String, private: bool) -> void:
 	var channel_options: ChannelsAPI.CreateChannelOptions = ChannelsAPI.CreateChannelOptions.new()
 	channel_options.auto_cleanup = true
 	channel_options.name = server_name

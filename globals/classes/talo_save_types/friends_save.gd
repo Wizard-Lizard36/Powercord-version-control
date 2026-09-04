@@ -17,5 +17,5 @@ func on_loaded(data: Dictionary) -> void:
 	for username in friends:
 		Internet.friend_loaded.emit(username)
 
-func _friend_added(username: String):
+func _friend_added(username: String) -> void:
 	friends.append(username)

@@ -36,15 +36,15 @@ func _on_internet_timer_timeout() -> void:
 
 ## Returning true DOES NOT necessarily mean that the request was successful. On the other hand, returning false DOES mean it WASN'T successful.
 func _check_for_internet() -> bool:
-	var url = "https://wizard-lizard36.github.io/Power-cord/" 
-	var error = internet_checker.request(url)
+	var url: String = "https://wizard-lizard36.github.io/Power-cord/" 
+	var error: Error = internet_checker.request(url)
 	
 	if error != OK:
 		print("Internet request failed.")
 		return false
 	return true
 
-func _request_completed(result: int, response_code: int, _headers):
+func _request_completed(result: int, response_code: int, _headers) -> void:
 	if result == HTTPRequest.RESULT_SUCCESS and response_code == 200:
 		online = true
 	else:

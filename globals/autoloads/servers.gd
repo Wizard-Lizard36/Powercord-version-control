@@ -7,3 +7,5 @@ const Keys: Dictionary = {
 	Attachments = "attachments",
 	AttachmentImage = "image"
 }
+
+var servers: Dictionary[String, TaloChannel] = {}

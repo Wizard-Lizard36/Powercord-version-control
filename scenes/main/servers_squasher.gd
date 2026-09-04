@@ -2,7 +2,11 @@ extends HSplitContainer
 
 signal current_server_set
 
-var servers: Dictionary[String, TaloChannel] = {}
+var servers: Dictionary[String, TaloChannel]:
+	set(new_val):
+		Servers.servers = new_val
+	get():
+		return Servers.servers
 var server_nodes: Array[Button]
 var messages: Dictionary[TaloChannel, Dictionary] = {}
 
@@ -19,7 +23,6 @@ func _ready() -> void:
 	update_server_list()
 
 
-
 ## Sets servers to the user's subscribed channels.
 func update_servers() -> Dictionary[String, TaloChannel]:
 	var options: ChannelsAPI.GetSubscribedChannelsOptions = Talo.channels.GetSubscribedChannelsOptions.new()
@@ -27,6 +30,7 @@ func update_servers() -> Dictionary[String, TaloChannel]:
 	for server in (await Talo.channels.get_subscribed_channels(options)):
 		servers[server.name] = server
 	return servers
+
 
 func update_server_list() -> void:
 	while server_nodes.size() > 0:
@@ -42,9 +46,11 @@ func update_server_list() -> void:
 		server_list.add_child(button)
 		message_list.load_server(server)
 
+
 func _on_server_pressed(server: TaloChannel) -> void:
 	var server_name: String = server.name
 	message_list.show_server(server_name)
+
 
 func _set_current_server(server_name: String) -> void:
 	await update_servers()

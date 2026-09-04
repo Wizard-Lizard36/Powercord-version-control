@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cvcnbbdpmtril"]
+
+[ext_resource type="Texture2D" uid="uid://iy5o4jo6kb5e" path="res://misc/logged_out.png" id="1_xryo8"]
+
+[node name="PlaceholderServer" type="VBoxContainer" unique_id=814876056]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="Test" type="VBoxContainer" parent="." unique_id=557070888]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Test" unique_id=1761450196]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("1_xryo8")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="Test" unique_id=1620343875]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+fit_content = true
+
+[node name="Test2" type="VBoxContainer" parent="." unique_id=2095287784]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Test2" unique_id=653330622]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("1_xryo8")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="Test2" unique_id=2014487163]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+fit_content = true
+
+[node name="Test3" type="VBoxContainer" parent="." unique_id=1458030911]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Test3" unique_id=719630051]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("1_xryo8")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="Test3" unique_id=2007093170]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+fit_content = true
+
+[node name="Test4" type="VBoxContainer" parent="." unique_id=720331624]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Test4" unique_id=1664996586]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("1_xryo8")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="Test4" unique_id=1126673558]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+fit_content = true
+
+[node name="Test5" type="VBoxContainer" parent="." unique_id=1713790960]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Test5" unique_id=1299450108]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "The 34th WizardLizard"
+icon = ExtResource("1_xryo8")
+flat = true
+alignment = 0
+expand_icon = true
+
+[node name="Test" type="RichTextLabel" parent="Test5" unique_id=1572481136]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+fit_content = true

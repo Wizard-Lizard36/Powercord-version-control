@@ -5,6 +5,13 @@ signal current_server_set
 
 var current_server: TaloChannel
 
+var checking_for_failure: bool = false
+var message_failed: bool = false
+
+@export var message_scroll_container: ScrollContainer
+
+func _ready() -> void:
+	Talo.channels.message_received.connect(_message_recieved)
 
 func generate_message_data(message: String) -> Dictionary:
 	return {
@@ -12,15 +19,26 @@ func generate_message_data(message: String) -> Dictionary:
 			"sender" : Talo.current_alias.display_name,
 			}
 
+
 func send_message(server: TaloChannel, message: String) -> void:
 	Talo.channels.send_message(server.id, message)
 	
-	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY)
+	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
 	var message_datas: Array[String] = []
 	for talo_message_data in talo_message_datas:
 		message_datas.append(talo_message_data.value)
 	message_datas.append(var_to_str(generate_message_data(message)))
 	Talo.channels.set_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, message_datas)
+	
+	checking_for_failure = true
+	await get_tree().create_timer(1).timeout
+	checking_for_failure = false
+	
+	if message_failed:
+		message_failed = false
+		return
+	
+	add_message(server, generate_message_data(message))
 
 
 func load_server(server: TaloChannel) -> void:
@@ -38,6 +56,8 @@ func load_server(server: TaloChannel) -> void:
 
 
 func add_message(server: TaloChannel, message_data: Dictionary) -> void:
+	if !message_data.has("sender"):
+		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
 	var sender_button: Button = Button.new()
 	sender_button.text = message_data.sender
@@ -61,12 +81,20 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 			server_vbox = child
 	if server_vbox:
 		server_vbox.add_child(message_vbox)
+	
+	var current_value: float = message_scroll_container.get_v_scroll_bar().max_value - message_scroll_container.get_v_scroll_bar().page
+	if message_scroll_container.scroll_vertical == round(current_value):
+		await get_tree().process_frame
+		var new_value: float = message_scroll_container.get_v_scroll_bar().max_value - message_scroll_container.get_v_scroll_bar().page
+		message_scroll_container.scroll_vertical = round(new_value)
+
 
 func clear_messages(server_name: String) -> void:
 	for server_node in get_children():
 		if server_node.name == server_name:
 			for server_child in server_node.get_children():
 				server_child.queue_free()
+
 
 func load_messages(server: TaloChannel) -> void:
 	clear_messages(server.name)
@@ -87,9 +115,20 @@ func show_server(server_name: String) -> void:
 			current_tab = child_number
 			set_current_server.emit(server_name)
 
+
 func decode_property(property: String) -> Dictionary:
 	return str_to_var(property) if str_to_var(property) is Dictionary else {}
 
+func _message_recieved(server: TaloChannel, _sender_alias: TaloPlayerAlias, message: String) -> void:
+	add_message(server, decode_property(message))
 
 func _current_server_set() -> void:
 	current_server_set.emit()
+
+
+func _on_message_prompt_send_message(text: String) -> void:
+	send_message(current_server, text)
+
+func _message_failed(_channel: TaloChannel, _failed_props: Array[TaloRejectedProp]) -> void:
+	if checking_for_failure:
+		message_failed = true
