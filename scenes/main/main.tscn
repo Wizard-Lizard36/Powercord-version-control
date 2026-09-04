@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c65he16h8pf8i" path="res://scenes/main/servers_squasher.gd" id="4_6q06x"]
 [ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="4_l3cfh"]
 [ext_resource type="Script" uid="uid://bnshtdiu77oi1" path="res://scenes/main/tab_container.gd" id="5_hujxm"]
+[ext_resource type="Script" uid="uid://cg3o2pea8qrvx" path="res://scenes/main/message_prompt.gd" id="6_hujxm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6r5p"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -211,6 +212,7 @@ offset_transform_position_ratio = Vector2(0, 0.3)
 offset_transform_visual_only = false
 theme_override_font_sizes/font_size = 32
 tab_input_mode = false
+script = ExtResource("6_hujxm")
 
 [node name="FriendsSave" type="Node" parent="." unique_id=2034876710]
 script = ExtResource("4_l3cfh")

@@ -18,9 +18,7 @@ func _ready() -> void:
 	await update_servers()
 	update_server_list()
 
-func _on_server_pressed(server: TaloChannel) -> void:
-	var server_name: String = server.name
-	message_list.show_server(server_name)
+
 
 ## Sets servers to the user's subscribed channels.
 func update_servers() -> Dictionary[String, TaloChannel]:
@@ -44,6 +42,9 @@ func update_server_list() -> void:
 		server_list.add_child(button)
 		message_list.load_server(server)
 
+func _on_server_pressed(server: TaloChannel) -> void:
+	var server_name: String = server.name
+	message_list.show_server(server_name)
 
 func _set_current_server(server_name: String) -> void:
 	await update_servers()
