@@ -27,7 +27,7 @@ bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blune"]
 
-[node name="Main" type="Panel" unique_id=1085308324]
+[node name="Main" type="Panel" unique_id=1085308324 node_paths=PackedStringArray("servers_squasher")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,6 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c6r5p")
 script = ExtResource("1_hyk8p")
+servers_squasher = NodePath("ServersSquasher")
 
 [node name="Profile" type="MenuButton" parent="." unique_id=248798832]
 texture_filter = 3
