@@ -206,7 +206,7 @@ anchor_top = 0.17195767
 anchor_right = 1.0
 anchor_bottom = 0.9656085
 offset_right = 347.0
-offset_bottom = 378.0
+offset_bottom = 300.0
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, 65)
 offset_transform_visual_only = false
@@ -240,3 +240,4 @@ expand_icon = true
 [connection signal="pressed" from="X" to="." method="_on_x_pressed"]
 [connection signal="pressed" from="AddFriend" to="." method="_on_add_friend_pressed"]
 [connection signal="pressed" from="AddPopup/MarginContainer/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="InvitePopup/X" to="." method="_on_invite_x_pressed"]

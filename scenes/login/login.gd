@@ -1,7 +1,7 @@
 extends Panel
 
 signal sign_up
-signal log_in(username: String, password, String, remember_me: bool)
+signal log_in(username: String, password: String, remember_me: bool)
 
 @export var username_prompt: LineEdit
 @export var password_prompt: LineEdit

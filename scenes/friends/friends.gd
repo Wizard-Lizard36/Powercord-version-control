@@ -64,10 +64,13 @@ func _on_add_friend_pressed() -> void:
 
 var error_generator: ExtraFeatures = ExtraFeatures.new()
 func _on_confirm_pressed() -> void:
-	var alias: String = username_prompt.text
-	var res: PlayersAPI.SearchPage = await Talo.players.search(alias)
+	var username: String = username_prompt.text
+	var res: PlayersAPI.SearchPage = await Talo.players.search(username)
 	if res.count > 0:
-		Internet.friend_added.emit(alias)
+		if username == Talo.current_alias.identifier:
+			error_generator.error("You can't friend yourself!", error_label)
+			return
+		Internet.friend_added.emit(username)
 		OnlineSaves.save_to_latest()
 		add_popup.queue_free()
 		await get_tree().create_timer(0.5).timeout

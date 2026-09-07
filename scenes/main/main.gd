@@ -47,7 +47,7 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 	var res: PlayerAuthAPI.PlayerAuthLoginResult = await Talo.player_auth.login(username, password)
 	if res.verification_required:
 		open_email_confirmation_screen()
-		
+		Talo.player_auth
 	elif res.success:
 		OnlineSaves.load_latest()
 		GlobalVariables.logged_in = true
