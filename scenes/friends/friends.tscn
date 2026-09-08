@@ -79,6 +79,7 @@ offset_bottom = -255.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 22
+text = "This search bar doesn't work :)"
 placeholder_text = "Search for a friend's username."
 
 [node name="FriendsScrollContainer" type="ScrollContainer" parent="." unique_id=1431829722]

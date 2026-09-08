@@ -70,6 +70,9 @@ func _on_confirm_pressed() -> void:
 		if username == Talo.current_alias.identifier:
 			error_generator.error("You can't friend yourself!", error_label)
 			return
+		if Internet.friends.map(func(new_username: String) -> String: return new_username.to_lower()).has(username.to_lower()):
+			error_generator.error("You can't friend someone twice!", error_label)
+			return
 		Internet.friend_added.emit(username)
 		OnlineSaves.save_to_latest()
 		add_popup.queue_free()
