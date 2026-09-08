@@ -8,7 +8,58 @@ var current_server: TaloChannel
 @export var message_scroll_container: ScrollContainer
 
 func _ready() -> void:
+	#ImageTexture.create_from_image(decode_image(encode_image(load("res://misc/logged_out.png").get_image())))
 	Talo.channels.channel_storage_props_updated.connect(_message_recieved)
+
+
+const TARGET_IMAGE_SIZE: int = 1080
+
+# Called when the node enters the scene tree for the first time.
+func encode_image(image: Image) -> Array[String]:
+	
+	var image_size: Vector2i = image.get_size()
+	
+	var quotient: float = 0
+	
+	var x_bigger: bool = true if image_size.x > image_size.y else false
+	
+	if x_bigger:
+		quotient = TARGET_IMAGE_SIZE / float(image_size.x)
+		image.resize(TARGET_IMAGE_SIZE, int(image_size.y * quotient))
+	else:
+		quotient = TARGET_IMAGE_SIZE / float(image_size.y)
+		image.resize(int(image_size.x * quotient), TARGET_IMAGE_SIZE)
+	
+	
+	
+	var buffer: PackedByteArray = image.save_webp_to_buffer(true, 0.5)
+	
+	var start_string: String = var_to_str(buffer)
+	
+	var output_array: Array[String] = []
+	
+	while start_string.length() > 0:
+		output_array.append(start_string.left(512))
+		start_string = start_string.erase(0, 512)
+	if output_array.size() > 1000:
+		assert(false)
+		push_error("Something seems broken here.")
+	
+	return output_array
+
+## Decodes the image encoded as an Array[String].
+## Returns null on failure.
+func decode_image(data_array: Array[String]) -> Image:
+	var end_string: String = ""
+	for string in data_array:
+		end_string += string
+	
+	var buffer: PackedByteArray = str_to_var(end_string)
+	var loaded_image: Image = Image.new()
+	var err: Error = loaded_image.load_webp_from_buffer(buffer)
+	if !err:
+		return loaded_image
+	return null
 
 func generate_message_data(message: String) -> Dictionary:
 	return {
