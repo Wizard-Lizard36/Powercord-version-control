@@ -50,11 +50,13 @@ offset_bottom = 100.0
 grow_horizontal = 0
 icon = ExtResource("2_k2fmo")
 expand_icon = true
-item_count = 2
-popup/item_0/text = "Friends"
-popup/item_0/id = 0
-popup/item_1/text = "Create Server"
-popup/item_1/id = 1
+item_count = 3
+popup/item_0/text = "Settings"
+popup/item_0/id = 2
+popup/item_1/text = "Friends"
+popup/item_1/id = 0
+popup/item_2/text = "Create Server"
+popup/item_2/id = 1
 script = ExtResource("3_k2fmo")
 
 [node name="ServersSquasher" type="HSplitContainer" parent="." unique_id=345125232 node_paths=PackedStringArray("server_list", "message_list")]
@@ -137,6 +139,7 @@ metadata/_custom_type_script = "uid://dhqqjo87586ou"
 [connection signal="open_friends_list" from="Profile" to="." method="_open_friends_screen"]
 [connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]
 [connection signal="open_server_creation" from="Profile" to="." method="_open_server_creation"]
+[connection signal="open_settings" from="Profile" to="." method="open_settings_screen"]
 [connection signal="pressed" from="Profile" to="Profile" method="_on_pressed"]
 [connection signal="current_server_set" from="ServersSquasher" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_current_server_set"]
 [connection signal="set_current_server" from="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" to="ServersSquasher" method="_set_current_server"]

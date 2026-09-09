@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://jy2xy283kf10"]
+
+[ext_resource type="Script" uid="uid://4t6y7xi0wi2p" path="res://scenes/settings/settings_menu.gd" id="1_k814s"]
+[ext_resource type="Texture2D" uid="uid://b2kvdb6rkvfya" path="res://misc/X.png" id="2_itqk5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8him4"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.19076231, 0.19076234, 0.19076225, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+corner_detail = 7
+
+[sub_resource type="DPITexture" id="DPITexture_k814s"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_itqk5"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_8him4"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_0jars"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_24aoh"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_vig33"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_y35kr"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="DPITexture" id="DPITexture_xs2i8"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k814s"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1440624, 0.14406258, 0.14406255, 1)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+corner_detail = 7
+
+[node name="SettingsMenu" type="Panel" unique_id=734238001 node_paths=PackedStringArray("use_email_verification", "enter_password", "error_label", "password_prompt")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8him4")
+script = ExtResource("1_k814s")
+use_email_verification = NodePath("Options/UseEmailVerification")
+enter_password = NodePath("EnterPassword")
+error_label = NodePath("EnterPassword/ErrorLabel")
+password_prompt = NodePath("EnterPassword/PasswordPrompt")
+
+[node name="X" type="Button" parent="." unique_id=1112100639]
+self_modulate = Color(0.72464234, 0.72464275, 0.7246423, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.93950456
+anchor_top = 0.03609023
+anchor_right = 0.9785714
+anchor_bottom = 0.10827068
+grow_horizontal = 0
+icon = ExtResource("2_itqk5")
+flat = true
+expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Options" type="VBoxContainer" parent="." unique_id=911305321]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041208792
+anchor_top = 0.05612245
+anchor_right = 0.26043957
+anchor_bottom = 0.9438776
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="UseEmailVerification" type="CheckButton" parent="Options" unique_id=730358]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_icons/checked = SubResource("DPITexture_k814s")
+theme_override_icons/unchecked = SubResource("DPITexture_itqk5")
+theme_override_icons/checked_disabled = SubResource("DPITexture_8him4")
+theme_override_icons/unchecked_disabled = SubResource("DPITexture_0jars")
+theme_override_icons/checked_mirrored = SubResource("DPITexture_24aoh")
+theme_override_icons/unchecked_mirrored = SubResource("DPITexture_vig33")
+theme_override_icons/checked_disabled_mirrored = SubResource("DPITexture_y35kr")
+theme_override_icons/unchecked_disabled_mirrored = SubResource("DPITexture_xs2i8")
+text = "Use email verification"
+
+[node name="EnterPassword" type="Panel" parent="." unique_id=1786056615]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.36263737
+anchor_top = 0.25714287
+anchor_right = 0.63736266
+anchor_bottom = 0.66530615
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k814s")
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="EnterPassword" unique_id=523111615]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.142
+anchor_top = 0.0675
+anchor_right = 0.858
+anchor_bottom = 0.18
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Please enter password:"
+metadata/_edit_use_anchors_ = true
+
+[node name="ErrorLabel" type="Label" parent="EnterPassword" unique_id=161715673]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.364
+anchor_top = 0.565
+anchor_right = 0.636
+anchor_bottom = 0.635
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PasswordPrompt" type="LineEdit" parent="EnterPassword" unique_id=24014422]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1176875
+anchor_top = 0.3475
+anchor_right = 0.8823125
+anchor_bottom = 0.4875
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 26
+placeholder_text = "Password"
+secret = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Confirm" type="Button" parent="EnterPassword" unique_id=1994733030]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -108.0
+offset_right = 82.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Confirm"
+
+[connection signal="pressed" from="X" to="." method="_on_x_pressed"]
+[connection signal="toggled" from="Options/UseEmailVerification" to="." method="_on_use_email_verification_toggled"]
+[connection signal="pressed" from="EnterPassword/Confirm" to="." method="_on_confirm_pressed"]

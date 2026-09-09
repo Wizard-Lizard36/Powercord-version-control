@@ -5,6 +5,7 @@ const SIGNUP = preload("uid://bt2yw2vyn3jq3")
 const EMAIL_CONFIRMATION = preload("uid://b7s2io2bt77le")
 const FRIENDS = preload("uid://c2y5l3lbbsku6")
 const SERVER_CREATION = preload("uid://dfm72lr453dkv")
+const SETTINGS_MENU = preload("uid://jy2xy283kf10")
 
 @export var servers_squasher: HSplitContainer
 
@@ -13,7 +14,7 @@ var signup: Panel
 var email_confirmation: Panel
 var friends: Panel
 var server_creation: Panel
-
+var settings_menu: Panel
 
 var remember_me: bool = false:
 	set(new_val):
@@ -46,8 +47,10 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 	remember_me = _remember_me
 	var res: PlayerAuthAPI.PlayerAuthLoginResult = await Talo.player_auth.login(username, password)
 	if res.verification_required:
+		GlobalVariables.users_password = password
 		open_email_confirmation_screen()
 	elif res.success:
+		GlobalVariables.users_password = password
 		OnlineSaves.load_latest()
 		GlobalVariables.logged_in = true
 		login.queue_free()
@@ -73,6 +76,7 @@ func sign_up_attempt(email: String, username: String, password: String) -> void:
 			_:
 				registration_error_generator.error(res.error.message, signup.error_label)
 	else:
+		GlobalVariables.users_password = password
 		GlobalVariables.logged_in = true
 		signup.queue_free()
 
@@ -109,6 +113,13 @@ func open_email_confirmation_screen() -> void:
 	clear_screens()
 	email_confirmation = EMAIL_CONFIRMATION.instantiate()
 	add_child(email_confirmation)
+
+func open_settings_screen() -> void:
+	if settings_menu:
+		return
+	clear_screens()
+	settings_menu = SETTINGS_MENU.instantiate()
+	add_child(settings_menu)
 
 func clear_screens(exeption: Node = null) -> void:
 	if login and login != exeption:

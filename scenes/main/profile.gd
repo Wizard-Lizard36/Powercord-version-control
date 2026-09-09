@@ -3,6 +3,7 @@ extends MenuButton
 signal open_login_screen
 signal open_friends_list
 signal open_server_creation
+signal open_settings
 
 func _ready() -> void:
 	get_popup().id_pressed.connect(_item_pressed)
@@ -13,6 +14,8 @@ func _item_pressed(id: int) -> void:
 			open_friends_list.emit()
 		1:
 			open_server_creation.emit()
+		2:
+			open_settings.emit()
 		_:
 			assert(false, "Update me")
 

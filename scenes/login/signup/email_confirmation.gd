@@ -17,6 +17,7 @@ func _on_submit_pressed() -> void:
 		verify_complete.emit(false)
 	else:
 		OnlineSaves.load_latest()
+		GlobalVariables.using_email_verification = true
 		GlobalVariables.logged_in = true
 		verify_complete.emit(true)
 		queue_free()
