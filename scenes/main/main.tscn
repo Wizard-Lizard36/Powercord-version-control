@@ -27,6 +27,18 @@ bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blune"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hujxm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 5
+
 [node name="Main" type="Panel" unique_id=1085308324 node_paths=PackedStringArray("servers_squasher")]
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,10 +124,18 @@ deselect_enabled = true
 script = ExtResource("5_hujxm")
 message_scroll_container = NodePath("..")
 
-[node name="MessagePrompt" type="TextEdit" parent="ServersSquasher/ServerUI" unique_id=1070550847 node_paths=PackedStringArray("length_error")]
+[node name="Inputs" type="HBoxContainer" parent="ServersSquasher/ServerUI" unique_id=1002767342]
 custom_minimum_size = Vector2(0, 60)
+propagate_maximum_size = false
 layout_mode = 2
 offset_transform_enabled = true
+offset_transform_position_ratio = Vector2(0, 0.3)
+offset_transform_visual_only = false
+
+[node name="MessagePrompt" type="TextEdit" parent="ServersSquasher/ServerUI/Inputs" unique_id=1070550847 node_paths=PackedStringArray("length_error")]
+custom_minimum_size = Vector2(1250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 offset_transform_position_ratio = Vector2(0, 0.3)
 offset_transform_visual_only = false
 theme_override_font_sizes/font_size = 32
@@ -123,13 +143,45 @@ tab_input_mode = false
 script = ExtResource("6_hujxm")
 length_error = NodePath("LengthError")
 
-[node name="LengthError" type="AcceptDialog" parent="ServersSquasher/ServerUI/MessagePrompt" unique_id=1436247241]
+[node name="LengthError" type="AcceptDialog" parent="ServersSquasher/ServerUI/Inputs/MessagePrompt" unique_id=1436247241]
 oversampling_override = 1.0
 title = "Can't send!"
 initial_position = 1
 size = Vector2i(215, 132)
 dialog_text = "Message length is above the maximum size of 450."
 dialog_autowrap = true
+
+[node name="Add" type="Button" parent="ServersSquasher/ServerUI/Inputs" unique_id=1143917637]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddContainer" type="MarginContainer" parent="ServersSquasher/ServerUI/Inputs/Add" unique_id=999346153]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddV" type="MarginContainer" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer" unique_id=706409865]
+layout_mode = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_right = 22
+
+[node name="Panel" type="Panel" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer/AddV" unique_id=803900151]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hujxm")
+metadata/_edit_lock_ = true
+
+[node name="AddH" type="MarginContainer" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer" unique_id=2037650897]
+layout_mode = 2
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_bottom = 22
+
+[node name="Panel" type="Panel" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer/AddH" unique_id=198549953]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hujxm")
+metadata/_edit_lock_ = true
 
 [node name="FriendsSave" type="Node" parent="." unique_id=2034876710]
 script = ExtResource("4_l3cfh")
@@ -143,4 +195,4 @@ metadata/_custom_type_script = "uid://dhqqjo87586ou"
 [connection signal="pressed" from="Profile" to="Profile" method="_on_pressed"]
 [connection signal="current_server_set" from="ServersSquasher" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_current_server_set"]
 [connection signal="set_current_server" from="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" to="ServersSquasher" method="_set_current_server"]
-[connection signal="send_message" from="ServersSquasher/ServerUI/MessagePrompt" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_on_message_prompt_send_message"]
+[connection signal="send_message" from="ServersSquasher/ServerUI/Inputs/MessagePrompt" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_on_message_prompt_send_message"]

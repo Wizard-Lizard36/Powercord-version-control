@@ -174,22 +174,30 @@ placeholder_text = "Password"
 secret = true
 metadata/_edit_use_anchors_ = true
 
-[node name="Confirm" type="Button" parent="EnterPassword" unique_id=1994733030]
+[node name="Continue" type="HBoxContainer" parent="EnterPassword" unique_id=1255419288]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -82.0
-offset_top = -108.0
-offset_right = 82.0
-offset_bottom = -45.0
+anchors_preset = -1
+anchor_left = 0.336
+anchor_top = 0.73
+anchor_right = 0.664
+anchor_bottom = 0.8875
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Confirm" type="Button" parent="EnterPassword/Continue" unique_id=1994733030]
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Confirm"
 
+[node name="Cancel" type="Button" parent="EnterPassword/Continue" unique_id=458883333]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Cancel"
+
 [connection signal="pressed" from="X" to="." method="_on_x_pressed"]
 [connection signal="toggled" from="Options/UseEmailVerification" to="." method="_on_use_email_verification_toggled"]
-[connection signal="pressed" from="EnterPassword/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="EnterPassword/Continue/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="EnterPassword/Continue/Cancel" to="." method="_on_cancel_pressed"]

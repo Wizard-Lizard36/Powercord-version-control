@@ -38,3 +38,8 @@ func _on_confirm_pressed() -> void:
 		GlobalVariables.users_password = ""
 	else:
 		enter_password.hide()
+
+
+func _on_cancel_pressed() -> void:
+	use_email_verification.button_pressed = !use_email_verification.button_pressed
+	enter_password.hide()

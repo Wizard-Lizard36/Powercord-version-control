@@ -44,6 +44,7 @@ enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 [gui]
 
 theme/custom="uid://dk51ro5og41ux"
+theme/custom_font="uid://cpmjmn8fnnagt"
 
 [input]
 

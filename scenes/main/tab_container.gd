@@ -5,6 +5,8 @@ signal current_server_set
 
 var current_server: TaloChannel
 
+var loaded_messages: Dictionary[TaloChannel, Array]
+
 @export var message_scroll_container: ScrollContainer
 
 func _ready() -> void:
@@ -47,7 +49,7 @@ func encode_image(image: Image) -> Array[String]:
 	
 	return output_array
 
-## Decodes the image encoded as an Array[String].
+## Decodes the image encoded as an [Array]\[[String]\].
 ## Returns null on failure.
 func decode_image(data_array: Array[String]) -> Image:
 	var end_string: String = ""
@@ -61,23 +63,53 @@ func decode_image(data_array: Array[String]) -> Image:
 		return loaded_image
 	return null
 
-func generate_message_data(message: String) -> Dictionary:
+func generate_message_data(message: String, for_server: TaloChannel, image: Image = null) -> Dictionary:
 	return {
 			"text" : message,
 			"sender" : Talo.current_alias.display_name,
+			"image_id" : str(await generate_image_id(image, for_server))
 			}
 
+func generate_image_id(image: Image, server: TaloChannel) -> int:
+	if !image:
+		return -1
+	
+	var message_datas: Array[Dictionary] = (await get_message_datas(server))
+	
+	var last_image_id: int = 0
+	for data in message_datas:
+		last_image_id += 1
+		if data.has("image_id") == false or data["image_id"] == "-1":
+			continue
+		if (await Talo.channels.get_storage_prop_array(server.id, str(data["image_id"]))).map(get_prop_value) == encode_image(image):
+			return int(data["image_id"])
+	
+	
+	
+	return last_image_id
 
 func send_message(server: TaloChannel, message: String) -> void:
+	var message_datas: Array[String] = []
 	
 	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
-	var message_datas: Array[String] = []
 	for talo_message_data in talo_message_datas:
 		message_datas.append(talo_message_data.value)
-	message_datas.append(var_to_str(generate_message_data(message)))
+	message_datas.append(var_to_str(await generate_message_data(message, server)))
 	Talo.channels.set_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, message_datas)
 
+func get_prop_value(prop: TaloChannelStorageProp) -> Variant:
+	return prop.value
 
+func get_message_datas(server: TaloChannel, bust_cache: bool = true) -> Array[Dictionary]:
+	var message_datas: Array[Dictionary]
+	message_datas.assign(loaded_messages[server] if loaded_messages.has(server) else [])
+	if bust_cache:
+		message_datas.clear()
+	if message_datas.is_empty():
+		var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
+		for talo_message_data in talo_message_datas:
+			message_datas.append(str_to_var(talo_message_data.value))
+	return message_datas
 
 func load_server(server: TaloChannel) -> void:
 	
@@ -94,6 +126,9 @@ func load_server(server: TaloChannel) -> void:
 
 
 func add_message(server: TaloChannel, message_data: Dictionary) -> void:
+	if !loaded_messages.has(server):
+		loaded_messages[server] = []
+	loaded_messages[server].append(message_data)
 	if !message_data.has("sender"):
 		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
@@ -137,14 +172,9 @@ func clear_messages(server_name: String) -> void:
 func load_messages(server: TaloChannel) -> void:
 	clear_messages(server.name)
 	
-	
-	var properties: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY)
-	var message_datas: Array[String] = []
-	for property in properties:
-		message_datas.append(property.value)
+	var message_datas: Array[Dictionary] = await get_message_datas(server)
 	for message_data in message_datas:
-		var decoded_message_data: Dictionary = decode_property(message_data)
-		add_message(server, decoded_message_data)
+		add_message(server, message_data)
 
 
 func show_server(server_name: String) -> void:

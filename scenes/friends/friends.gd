@@ -62,6 +62,7 @@ func _on_add_friend_pressed() -> void:
 	add_popup.popup()
 
 
+
 var error_generator: ExtraFeatures = ExtraFeatures.new()
 func _on_confirm_pressed() -> void:
 	var username: String = username_prompt.text

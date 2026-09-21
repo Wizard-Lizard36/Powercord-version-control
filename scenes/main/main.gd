@@ -7,6 +7,8 @@ const FRIENDS = preload("uid://c2y5l3lbbsku6")
 const SERVER_CREATION = preload("uid://dfm72lr453dkv")
 const SETTINGS_MENU = preload("uid://jy2xy283kf10")
 
+const USE_EMAIL_VERIFICATION_BY_DEFAULT = true
+
 @export var servers_squasher: HSplitContainer
 
 var login: Panel
@@ -66,7 +68,7 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 var registration_error_generator: ExtraFeatures = ExtraFeatures.new()
 ## Attempt to sign the player up using Talo's player authentication.
 func sign_up_attempt(email: String, username: String, password: String) -> void:
-	var res: PlayerAuthAPI.PlayerAuthResult = await Talo.player_auth.register(username, password, email, true)
+	var res: PlayerAuthAPI.PlayerAuthResult = await Talo.player_auth.register(username, password, email, USE_EMAIL_VERIFICATION_BY_DEFAULT)
 	if !res.success:
 		match res.error.code:
 			TaloPlayerAuthError.ErrorCode.IDENTIFIER_TAKEN:
@@ -77,6 +79,7 @@ func sign_up_attempt(email: String, username: String, password: String) -> void:
 				registration_error_generator.error(res.error.message, signup.error_label)
 	else:
 		GlobalVariables.users_password = password
+		GlobalVariables.using_email_verification = USE_EMAIL_VERIFICATION_BY_DEFAULT
 		GlobalVariables.logged_in = true
 		signup.queue_free()
 
