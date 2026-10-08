@@ -2,7 +2,7 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://cpmjmn8fnnagt"
+uid="uid://d187lxirbk2rg"
 path="res://.godot/imported/OpenSans-SemiBold.ttf-8fef34131c75c041cfe18d23b4a74d48.fontdata"
 
 [deps]
@@ -27,15 +27,10 @@ subpixel_positioning=4
 keep_rounding_remainders=true
 oversampling=0.0
 Fallbacks=null
-fallbacks=[Resource("uid://bg73s2gxsenr8", "res://misc/NotoColorEmoji-Regular.ttf")]
+fallbacks=[]
 Compress=null
 compress=true
-preload=[{
-"chars": [],
-"glyphs": [],
-"name": "New Configuration",
-"size": Vector2i(16, 0)
-}]
+preload=[]
 language_support={}
 script_support={}
 opentype_features={}

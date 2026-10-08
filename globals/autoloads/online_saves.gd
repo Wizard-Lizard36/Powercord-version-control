@@ -22,14 +22,14 @@ func _notification(what: int) -> void:
 		await save_to_latest()
 		get_tree().quit()
 
-func load_latest():
+func load_latest() -> void:
 	if !Talo.has_identity():
 		await Talo.players.identified
 	save_type = SaveType.LATEST
 	Talo.saves.choose_save((await Talo.saves.get_saves())[0])
 	
 
-func save_to_latest():
+func save_to_latest() -> void:
 	save_type = SaveType.LATEST
 	var saves: Array[TaloGameSave] = await Talo.saves.get_saves()
 	if saves.size() <= 0:
@@ -42,7 +42,7 @@ func save_to_latest():
 func _saves_loaded() -> void:
 	saves_loaded.emit()
 
-func _save_chosen() -> void:
+func _save_chosen(save: Variant) -> void:
 	save_chosen.emit()
 
 func _save_fully_loaded() -> void:

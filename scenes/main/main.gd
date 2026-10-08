@@ -61,7 +61,7 @@ func log_in_attempt(username: String, password: String, _remember_me: bool = tru
 			TaloPlayerAuthError.ErrorCode.INVALID_CREDENTIALS:
 				login_error_generator.error("Username or password is incorrect", login.error_label)
 			_:
-				login_error_generator.error(Talo.player_auth.last_error.get_string(), login.error_label)
+				login_error_generator.error(res.error.message, login.error_label)
 
 
 
