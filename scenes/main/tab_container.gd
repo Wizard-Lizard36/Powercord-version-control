@@ -68,11 +68,12 @@ func decode_image(data_array: PackedStringArray) -> Image:
 		return loaded_image
 	return null
 
-func generate_message_data(message: String, image: Image = null) -> Dictionary:
+func generate_message_data(message: String, image: Image = null) -> Dictionary[String, String]:
 	return {
 			"text" : message,
 			"sender" : Talo.current_alias.display_name,
-			"image_id" : str(hash(image)) if image else "-1"
+			"time_sent" : str(Time.get_unix_time_from_system()),
+			"image_id" : str(hash(image)) if image else "-1",
 	}
 
 
@@ -135,14 +136,24 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	if !message_data.has("sender"):
 		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
+	var sender_hbox: HBoxContainer = HBoxContainer.new()
+	sender_hbox.custom_minimum_size.x = size.x
 	var sender_button: SenderButton = SenderButton.new()
+	var time_sent: RichTextLabel = RichTextLabel.new()
+	time_sent.fit_content = true
+	time_sent.autowrap_mode = TextServer.AUTOWRAP_OFF
+	time_sent.text = message_data["time_sent"] if message_data.has("time_sent") else "Unknown"
 	sender_button.text = message_data.sender
 	
 	var message_body: RichTextLabel = RichTextLabel.new()
 	message_body.text = message_data.text
 	message_body.fit_content = true
+	
 	ExtraFeatures.set_all_font_sizes(message_body, GlobalVariables.MESSAGE_FONT_SIZE)
-	message_vbox.add_child(sender_button)
+	
+	sender_hbox.add_child(sender_button)
+	sender_hbox.add_child(time_sent)
+	message_vbox.add_child(sender_hbox)
 	message_vbox.add_child(message_body)
 	if message_data.has("image_id"):
 		if str(message_data.image_id) != "-1":
@@ -178,7 +189,7 @@ func load_messages(server: TaloChannel) -> void:
 	
 	var message_datas: Array[Dictionary] = await get_message_datas(server)
 	for message_data in message_datas:
-		add_message(server, message_data)
+		await add_message(server, message_data)
 
 
 func show_server(server_name: String) -> void:
