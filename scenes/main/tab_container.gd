@@ -68,12 +68,12 @@ func decode_image(data_array: PackedStringArray) -> Image:
 		return loaded_image
 	return null
 
-func generate_message_data(message: String, image: Image = null) -> Dictionary[String, String]:
+func generate_message_data(message: String, image_data: PackedStringArray = []) -> Dictionary[String, String]:
 	return {
 			"text" : message,
 			"sender" : Talo.current_alias.display_name,
 			"time_sent" : str(Time.get_unix_time_from_system()),
-			"image_id" : str(hash(image)) if image else "-1",
+			"image_id" : str(hash(image_data)) if image_data else "-1",
 	}
 
 
@@ -84,7 +84,7 @@ func send_message(server: TaloChannel, message: String) -> void:
 	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
 	for talo_message_data in talo_message_datas:
 		message_datas.append(talo_message_data.value)
-	var message_data: Dictionary = generate_message_data(message, image_to_add)
+	var message_data: Dictionary = generate_message_data(message, encode_image(image_to_add))
 	message_datas.append(var_to_str(message_data))
 	if str(message_data.image_id) != "-1":
 		var typed_array: Array[String]
@@ -136,8 +136,7 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	if !message_data.has("sender"):
 		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
-	var sender_hbox: HBoxContainer = HBoxContainer.new()
-	sender_hbox.custom_minimum_size.x = size.x
+	#var sender_hbox: HBoxContainer = HBoxContainer.new()
 	var sender_button: SenderButton = SenderButton.new()
 	var time_sent: RichTextLabel = RichTextLabel.new()
 	time_sent.fit_content = true
@@ -151,12 +150,13 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	
 	ExtraFeatures.set_all_font_sizes(message_body, GlobalVariables.MESSAGE_FONT_SIZE)
 	
-	sender_hbox.add_child(sender_button)
-	sender_hbox.add_child(time_sent)
-	message_vbox.add_child(sender_hbox)
+	message_vbox.add_child(sender_button)
+	#sender_hbox.add_child(time_sent)
+	#message_vbox.add_child(sender_hbox)
 	message_vbox.add_child(message_body)
 	if message_data.has("image_id"):
 		if str(message_data.image_id) != "-1":
+			print(message_data.image_id)
 			var image: Image = decode_image(PackedStringArray(prop_array_to_string_array(await Talo.channels.get_storage_prop_array(server.id, str(message_data.image_id), true))))
 			var image_representation: TextureRect = TextureRect.new()
 			image_representation.expand_mode = TextureRect.EXPAND_KEEP_SIZE
