@@ -49,8 +49,9 @@ func _on_friend_alias_pressed(friend_button: Button) -> void:
 
 func _server_pressed(server: TaloChannel) -> void:
 	var search_page: PlayersAPI.SearchPage = await Talo.players.search(friend_to_invite)
-	Talo.channels.invite(server.id, search_page.players[0].aliases[0].id)
-	invite_popup.hide()
+	if search_page.count:
+		Talo.channels.invite(server.id, search_page.players[0].aliases[0].id)
+		invite_popup.hide()
 
 func _on_x_pressed() -> void:
 	queue_free()
@@ -71,10 +72,11 @@ func _on_confirm_pressed() -> void:
 		if username == Talo.current_alias.identifier:
 			error_generator.error("You can't friend yourself!", error_label)
 			return
+		
 		if Internet.friends.map(func(new_username: String) -> String: return new_username.to_lower()).has(username.to_lower()):
 			error_generator.error("You can't friend someone twice!", error_label)
 			return
-		Internet.friend_added.emit(username)
+		Internet.friend_added.emit(str(res.players[0].aliases[0].identifier))
 		OnlineSaves.save_to_latest()
 		add_popup.queue_free()
 		await get_tree().create_timer(0.5).timeout

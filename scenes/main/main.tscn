@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dhqqjo87586ou" path="res://globals/classes/talo_save_types/friends_save.gd" id="4_l3cfh"]
 [ext_resource type="Script" uid="uid://bnshtdiu77oi1" path="res://scenes/main/tab_container.gd" id="5_hujxm"]
 [ext_resource type="Script" uid="uid://cg3o2pea8qrvx" path="res://scenes/main/message_prompt.gd" id="6_hujxm"]
+[ext_resource type="Script" uid="uid://byghtovvubqki" path="res://scenes/main/add.gd" id="7_yyfjg"]
+[ext_resource type="Script" uid="uid://b7p0j7lcr7t5x" path="res://scenes/main/limits.gd" id="9_b1x3f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c6r5p"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -26,6 +28,18 @@ bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ouso4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_blune"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyfjg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.3372549)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hujxm"]
 content_margin_left = 0.0
@@ -109,7 +123,7 @@ follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="MessageList" type="TabContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer" unique_id=1169609522 node_paths=PackedStringArray("message_scroll_container")]
+[node name="MessageList" type="TabContainer" parent="ServersSquasher/ServerUI/MessageScrollContainer" unique_id=1169609522 node_paths=PackedStringArray("message_scroll_container", "limits")]
 custom_minimum_size = Vector2(1312, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ow5a4")
@@ -123,6 +137,7 @@ tabs_visible = false
 deselect_enabled = true
 script = ExtResource("5_hujxm")
 message_scroll_container = NodePath("..")
+limits = NodePath("../../../../Limits")
 
 [node name="Inputs" type="HBoxContainer" parent="ServersSquasher/ServerUI" unique_id=1002767342]
 custom_minimum_size = Vector2(0, 60)
@@ -132,7 +147,7 @@ offset_transform_enabled = true
 offset_transform_position_ratio = Vector2(0, 0.3)
 offset_transform_visual_only = false
 
-[node name="MessagePrompt" type="TextEdit" parent="ServersSquasher/ServerUI/Inputs" unique_id=1070550847 node_paths=PackedStringArray("length_error")]
+[node name="MessagePrompt" type="TextEdit" parent="ServersSquasher/ServerUI/Inputs" unique_id=1070550847 node_paths=PackedStringArray("message_error")]
 custom_minimum_size = Vector2(1250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -141,19 +156,23 @@ offset_transform_visual_only = false
 theme_override_font_sizes/font_size = 32
 tab_input_mode = false
 script = ExtResource("6_hujxm")
-length_error = NodePath("LengthError")
+message_error = NodePath("MessageError")
 
-[node name="LengthError" type="AcceptDialog" parent="ServersSquasher/ServerUI/Inputs/MessagePrompt" unique_id=1436247241]
+[node name="MessageError" type="AcceptDialog" parent="ServersSquasher/ServerUI/Inputs/MessagePrompt" unique_id=1436247241]
 oversampling_override = 1.0
 title = "Can't send!"
 initial_position = 1
 size = Vector2i(215, 132)
-dialog_text = "Message length is above the maximum size of 450."
+dialog_text = "Message length is above the maximum size of [size]."
 dialog_autowrap = true
 
-[node name="Add" type="Button" parent="ServersSquasher/ServerUI/Inputs" unique_id=1143917637]
+[node name="Add" type="Button" parent="ServersSquasher/ServerUI/Inputs" unique_id=1143917637 node_paths=PackedStringArray("message_list", "limits")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_yyfjg")
+script = ExtResource("7_yyfjg")
+message_list = NodePath("../../MessageScrollContainer/MessageList")
+limits = NodePath("../../../../Limits")
 
 [node name="AddContainer" type="MarginContainer" parent="ServersSquasher/ServerUI/Inputs/Add" unique_id=999346153]
 layout_mode = 1
@@ -170,6 +189,7 @@ theme_override_constants/margin_right = 22
 
 [node name="Panel" type="Panel" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer/AddV" unique_id=803900151]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_hujxm")
 metadata/_edit_lock_ = true
 
@@ -180,6 +200,7 @@ theme_override_constants/margin_bottom = 22
 
 [node name="Panel" type="Panel" parent="ServersSquasher/ServerUI/Inputs/Add/AddContainer/AddH" unique_id=198549953]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_hujxm")
 metadata/_edit_lock_ = true
 
@@ -187,6 +208,11 @@ metadata/_edit_lock_ = true
 script = ExtResource("4_l3cfh")
 id = "friend_loadable"
 metadata/_custom_type_script = "uid://dhqqjo87586ou"
+
+[node name="Limits" type="Node" parent="." unique_id=619124856]
+script = ExtResource("9_b1x3f")
+id = "limits"
+metadata/_custom_type_script = "uid://r3fisihyip7e"
 
 [connection signal="open_friends_list" from="Profile" to="." method="_open_friends_screen"]
 [connection signal="open_login_screen" from="Profile" to="." method="_open_login_screen"]
@@ -196,3 +222,4 @@ metadata/_custom_type_script = "uid://dhqqjo87586ou"
 [connection signal="current_server_set" from="ServersSquasher" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_current_server_set"]
 [connection signal="set_current_server" from="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" to="ServersSquasher" method="_set_current_server"]
 [connection signal="send_message" from="ServersSquasher/ServerUI/Inputs/MessagePrompt" to="ServersSquasher/ServerUI/MessageScrollContainer/MessageList" method="_on_message_prompt_send_message"]
+[connection signal="pressed" from="ServersSquasher/ServerUI/Inputs/Add" to="ServersSquasher/ServerUI/Inputs/Add" method="_on_pressed"]

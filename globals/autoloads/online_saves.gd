@@ -27,7 +27,7 @@ func load_latest() -> void:
 		await Talo.players.identified
 	save_type = SaveType.LATEST
 	Talo.saves.choose_save((await Talo.saves.get_saves())[0])
-	
+
 
 func save_to_latest() -> void:
 	save_type = SaveType.LATEST

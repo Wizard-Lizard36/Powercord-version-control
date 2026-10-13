@@ -7,6 +7,7 @@ class_name TaloSocket extends Node
 ## @tutorial: https://docs.trytalo.com/docs/godot/socket
 
 const DEFAULT_SOCKET_URL := "wss://api.trytalo.com"
+const BUFFER_MULTIPLIER = 10
 
 var _socket := WebSocketPeer.new()
 var _temp_socket_token: String
@@ -32,8 +33,8 @@ signal error_received(err: TaloSocketError)
 
 func _ready() -> void:
 	message_received.connect(_on_message_received)
-	_socket.inbound_buffer_size = 65535 * 10
-	_socket.outbound_buffer_size = 65535 * 10
+	_socket.inbound_buffer_size = 65535 * BUFFER_MULTIPLIER
+	_socket.outbound_buffer_size = 65535 * BUFFER_MULTIPLIER
 
 
 func _identify_player() -> void:
@@ -126,6 +127,7 @@ func reset_connection() -> void:
 	close_connection()
 	_reset_socket()
 
+
 	if Talo.settings.auto_connect_socket:
 		open_connection()
 
@@ -133,8 +135,8 @@ func reset_connection() -> void:
 func _reset_socket() -> void:
 	connection_closed.emit(_socket.get_close_code(), _socket.get_close_reason())
 	_socket = WebSocketPeer.new()
-	_socket.inbound_buffer_size = 65535 * 10
-	_socket.outbound_buffer_size = 65535 * 10
+	_socket.inbound_buffer_size = 65535 * BUFFER_MULTIPLIER
+	_socket.outbound_buffer_size = 65535 * BUFFER_MULTIPLIER
 	_socket_authenticated = false
 	_identified = false
 

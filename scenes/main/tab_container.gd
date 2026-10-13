@@ -1,5 +1,7 @@
 extends TabContainer
 
+const SENT_IMAGE_QUALITY = 0.5
+
 signal set_current_server(server_name: String)
 signal current_server_set
 
@@ -8,16 +10,18 @@ var current_server: TaloChannel
 var loaded_messages: Dictionary[TaloChannel, Array]
 
 @export var message_scroll_container: ScrollContainer
+@export var limits: LimitsSave
+
+var image_to_add: Image = null
 
 func _ready() -> void:
-	#ImageTexture.create_from_image(decode_image(encode_image(load("res://misc/logged_out.png").get_image())))
 	Talo.channels.channel_storage_props_updated.connect(_message_recieved)
 
 
 const TARGET_IMAGE_SIZE: int = 1080
 
 # Called when the node enters the scene tree for the first time.
-func encode_image(image: Image) -> Array[String]:
+func encode_image(image: Image) -> PackedStringArray:
 	
 	var image_size: Vector2i = image.get_size()
 	
@@ -34,24 +38,25 @@ func encode_image(image: Image) -> Array[String]:
 	
 	
 	
-	var buffer: PackedByteArray = image.save_webp_to_buffer(true, 0.5)
+	var buffer: PackedByteArray = image.save_webp_to_buffer(true, SENT_IMAGE_QUALITY)
 	
 	var start_string: String = var_to_str(buffer)
 	
 	var output_array: Array[String] = []
 	
 	while start_string.length() > 0:
-		output_array.append(start_string.left(512))
-		start_string = start_string.erase(0, 512)
+		output_array.append(start_string.left(500))
+		start_string = start_string.erase(0, 500)
 	if output_array.size() > 1000:
 		assert(false)
 		push_error("Something seems broken here.")
+		return []
 	
 	return output_array
 
 ## Decodes the image encoded as an [Array]\[[String]\].
 ## Returns null on failure.
-func decode_image(data_array: Array[String]) -> Image:
+func decode_image(data_array: PackedStringArray) -> Image:
 	var end_string: String = ""
 	for string in data_array:
 		end_string += string
@@ -63,30 +68,14 @@ func decode_image(data_array: Array[String]) -> Image:
 		return loaded_image
 	return null
 
-func generate_message_data(message: String, for_server: TaloChannel, image: Image = null) -> Dictionary:
+func generate_message_data(message: String, image: Image = null) -> Dictionary:
 	return {
 			"text" : message,
 			"sender" : Talo.current_alias.display_name,
-			"image_id" : str(await generate_image_id(image, for_server))
-			}
+			"image_id" : str(hash(image)) if image else "-1"
+	}
 
-func generate_image_id(image: Image, server: TaloChannel) -> int:
-	if !image:
-		return -1
-	
-	var message_datas: Array[Dictionary] = (await get_message_datas(server))
-	
-	var last_image_id: int = 0
-	for data in message_datas:
-		last_image_id += 1
-		if data.has("image_id") == false or data["image_id"] == "-1":
-			continue
-		if (await Talo.channels.get_storage_prop_array(server.id, str(data["image_id"]))).map(get_prop_value) == encode_image(image):
-			return int(data["image_id"])
-	
-	
-	
-	return last_image_id
+
 
 func send_message(server: TaloChannel, message: String) -> void:
 	var message_datas: Array[String] = []
@@ -94,7 +83,15 @@ func send_message(server: TaloChannel, message: String) -> void:
 	var talo_message_datas: Array[TaloChannelStorageProp] = await Talo.channels.get_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, true)
 	for talo_message_data in talo_message_datas:
 		message_datas.append(talo_message_data.value)
-	message_datas.append(var_to_str(await generate_message_data(message, server)))
+	var message_data: Dictionary = generate_message_data(message, image_to_add)
+	message_datas.append(var_to_str(message_data))
+	if str(message_data.image_id) != "-1":
+		var typed_array: Array[String]
+		typed_array.assign(encode_image(image_to_add))
+		Talo.channels.set_storage_prop_array(current_server.id, str(message_data.image_id), typed_array)
+		limits.limits["images"] += 1
+		OnlineSaves.save_to_latest()
+	
 	Talo.channels.set_storage_prop_array(server.id, GlobalVariables.MESSAGES_PROP_KEY, message_datas)
 
 func get_prop_value(prop: TaloChannelStorageProp) -> Variant:
@@ -110,6 +107,12 @@ func get_message_datas(server: TaloChannel, bust_cache: bool = true) -> Array[Di
 		for talo_message_data in talo_message_datas:
 			message_datas.append(str_to_var(talo_message_data.value))
 	return message_datas
+
+func prop_array_to_string_array(prop_array: Array[TaloChannelStorageProp]) -> Array[String]:
+	var strings: Array[String] = []
+	for prop in prop_array:
+		strings.append(prop.value)
+	return strings
 
 func load_server(server: TaloChannel) -> void:
 	
@@ -132,14 +135,8 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	if !message_data.has("sender"):
 		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
-	var sender_button: Button = Button.new()
+	var sender_button: SenderButton = SenderButton.new()
 	sender_button.text = message_data.sender
-	sender_button.icon = preload("uid://iy5o4jo6kb5e")
-	sender_button.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	sender_button.flat = true
-	sender_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	sender_button.expand_icon = true
-	sender_button.add_theme_font_size_override("font_size", GlobalVariables.MESSAGE_SENDER_FONT_SIZE)
 	
 	var message_body: RichTextLabel = RichTextLabel.new()
 	message_body.text = message_data.text
@@ -147,6 +144,13 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	ExtraFeatures.set_all_font_sizes(message_body, GlobalVariables.MESSAGE_FONT_SIZE)
 	message_vbox.add_child(sender_button)
 	message_vbox.add_child(message_body)
+	if message_data.has("image_id"):
+		if str(message_data.image_id) != "-1":
+			var image: Image = decode_image(PackedStringArray(prop_array_to_string_array(await Talo.channels.get_storage_prop_array(server.id, str(message_data.image_id), true))))
+			var image_representation: TextureRect = TextureRect.new()
+			image_representation.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+			image_representation.texture = ImageTexture.create_from_image(image)
+			message_vbox.add_child(image_representation)
 	
 	var server_vbox: VBoxContainer
 	for child in get_children():
