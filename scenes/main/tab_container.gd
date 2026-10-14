@@ -23,6 +23,9 @@ const TARGET_IMAGE_SIZE: int = 1080
 # Called when the node enters the scene tree for the first time.
 func encode_image(image: Image) -> PackedStringArray:
 	
+	if !image:
+		return PackedStringArray()
+	
 	var image_size: Vector2i = image.get_size()
 	
 	var quotient: float = 0
@@ -72,7 +75,7 @@ func generate_message_data(message: String, image_data: PackedStringArray = []) 
 	return {
 			"text" : message,
 			"sender" : Talo.current_alias.display_name,
-			"time_sent" : str(Time.get_unix_time_from_system()),
+			"time_sent" : str(snappedf(Time.get_unix_time_from_system(), 0.001)),
 			"image_id" : str(hash(image_data)) if image_data else "-1",
 	}
 
@@ -136,12 +139,12 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	if !message_data.has("sender"):
 		return
 	var message_vbox: VBoxContainer = VBoxContainer.new()
-	#var sender_hbox: HBoxContainer = HBoxContainer.new()
+	var sender_hbox: HBoxContainer = HBoxContainer.new()
 	var sender_button: SenderButton = SenderButton.new()
 	var time_sent: RichTextLabel = RichTextLabel.new()
 	time_sent.fit_content = true
 	time_sent.autowrap_mode = TextServer.AUTOWRAP_OFF
-	time_sent.text = message_data["time_sent"] if message_data.has("time_sent") else "Unknown"
+	time_sent.text = Time.get_datetime_string_from_unix_time(Time.get_time_zone_from_system().bias * 60 + message_data["time_sent"].to_int()).right(8).left(5) if message_data.has("time_sent") else "Unknown"
 	sender_button.text = message_data.sender
 	
 	var message_body: RichTextLabel = RichTextLabel.new()
@@ -150,9 +153,9 @@ func add_message(server: TaloChannel, message_data: Dictionary) -> void:
 	
 	ExtraFeatures.set_all_font_sizes(message_body, GlobalVariables.MESSAGE_FONT_SIZE)
 	
-	message_vbox.add_child(sender_button)
-	#sender_hbox.add_child(time_sent)
-	#message_vbox.add_child(sender_hbox)
+	sender_hbox.add_child(sender_button)
+	sender_hbox.add_child(time_sent)
+	message_vbox.add_child(sender_hbox)
 	message_vbox.add_child(message_body)
 	if message_data.has("image_id"):
 		if str(message_data.image_id) != "-1":
